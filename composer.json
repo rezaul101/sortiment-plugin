@@ -1,0 +1,22 @@
+{
+    "name": "devreza/softx-sortiment",
+    "description": "A plugin for Sortiment",
+    "type": "wordpress-plugin",
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "Dev Reza",
+            "email": "dev.reza@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "johnpbloch/wordpress": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Softx\\Sortiment\\": "includes/"
+        },
+        "files": []
+    }
+}

@@ -25,6 +25,11 @@ class Assets {
                 'src'     => SF_SORTIMENT_ASSETS . '/js/custom.js',
                 'version' => filemtime( SF_SORTIMENT_PATH . '/assets/js/custom.js' ),
                 'deps'    => [ 'jquery' ]
+            ],
+            'sortiment-script-registation' => [
+                'src'     => SF_SORTIMENT_ASSETS . '/js/registation.js',
+                'version' => filemtime( SF_SORTIMENT_PATH . '/assets/js/registation.js' ),
+                'deps'    => [ 'jquery' ]
             ]
         ];
     }
@@ -67,5 +72,11 @@ class Assets {
 
             wp_register_style( $handle, $style['src'], $deps, $style['version'] );
         }
+        wp_localize_script( 'sortiment-script-registation', 'Sortiment', [
+            'ajaxurl' => admin_url( 'admin-ajax.php' ),
+            'error'   => __( 'Something went wrong.', 'softx-sortiment' ),
+        ] );
+
+
     }
 }

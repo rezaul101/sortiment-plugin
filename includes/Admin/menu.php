@@ -29,7 +29,7 @@ class Menu {
      * @return void
      */
     public function plugin_page() {
-        echo 'Hello World';
+        echo '<h1>Sortiment Deshbord</h1>';
     }
 
 

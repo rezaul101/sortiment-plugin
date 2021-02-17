@@ -80,14 +80,17 @@ final class Softx_Sortiment {
     public function init_plugin() {
 
         new Softx\Sortiment\Assets();
-
+        
+        if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+            new Softx\Sortiment\Ajax();
+        }
 
         //new Softx\Sortiment\Admin\Menu();
         if ( is_admin() ) {
             new Softx\Sortiment\Admin();
         } else {
-            $frontend = new Softx\Sortiment\Frontend();
-            var_dump($frontend);
+             new Softx\Sortiment\Frontend();
+            
             
         }
 

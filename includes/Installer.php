@@ -133,7 +133,7 @@ class Installer {
                 $sf_login_page = array(
                     'post_title'    => "Login",
                     'post_name'     => "login",
-                    'post_content'  => "Login Page",
+                    'post_content'  => "[sortiment_login]",
                     'post_status'   => 'publish',
                     'post_author'   => 1,
                     'post_type'     => "Page",

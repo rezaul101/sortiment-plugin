@@ -6,9 +6,6 @@
  */
 
 
-
-get_header();
-
 ?>
 <div class="main-div-section">
 	<div class="main-div-row login-row">
@@ -47,4 +44,3 @@ get_header();
 		</div> <!-- left side end -->
 	</div>  <!-- row end -->
 </div>  <!-- section end -->
-<?php get_footer(); ?>

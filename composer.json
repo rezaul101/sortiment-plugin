@@ -17,6 +17,6 @@
         "psr-4": {
             "Softx\\Sortiment\\": "includes/"
         },
-        "files": []
+        "files": [ "includes/functions.php" ]
     }
 }

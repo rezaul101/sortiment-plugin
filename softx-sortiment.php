@@ -69,6 +69,7 @@ final class Softx_Sortiment {
         define( 'SF_SORTIMENT_PLUGIN_DIR', plugin_dir_path(__FILE__));
         define( 'SF_SORTIMENT_URL', plugins_url( '', SF_SORTIMENT_FILE ) );
         define( 'SF_SORTIMENT_ASSETS', SF_SORTIMENT_URL . '/assets' );
+        define( 'SF_SORTIMENT_INCLUDES', SF_SORTIMENT_URL . '/includes' );
         //define( 'SF_SORTIMENT_TEMPLATE', SF_SORTIMENT_URL . '/templates' );
         
     }
@@ -82,7 +83,7 @@ final class Softx_Sortiment {
         new Softx\Sortiment\Assets();
         
         if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-            new Softx\Sortiment\Ajax();
+            new Softx\Sortiment\Frontend\Ajax();
         }
 
         //new Softx\Sortiment\Admin\Menu();

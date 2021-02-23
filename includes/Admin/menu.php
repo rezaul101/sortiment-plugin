@@ -20,7 +20,7 @@ class Menu {
      * @return void
      */
     public function admin_menu() {
-        add_menu_page( __( 'softx Sortiment', 'soft-sortiment' ), __( 'Sortiment', 'soft-sortiment' ), 'manage_options', 'soft-sortiment', [ $this, 'plugin_page' ], 'dashicons-admin-site-alt3' );
+        add_menu_page( __( 'softx Sortiment', 'softx-sortiment' ), __( 'Sortiment', 'softx-sortiment' ), 'manage_options', 'softx-sortiment', [ $this, 'plugin_page' ], 'dashicons-admin-site-alt3' );
     }
 
     /**
@@ -29,7 +29,18 @@ class Menu {
      * @return void
      */
     public function plugin_page() {
-        echo '<h1>Sortiment Deshbord</h1>';
+        if ( is_user_logged_in() ) {
+       // echo '<h1>Sortiment Deshbord</h1>';
+        wp_enqueue_script( 'sortiment-script-registation' );
+        wp_enqueue_style( 'sortiment-style' );
+        echo '<div class="wrap">';
+        require_once SF_SORTIMENT_PLUGIN_DIR . 'includes/Frontend/views/dashboard.php';
+        echo '</div>';
+        } else{
+            echo '<div class="wrap">';
+            echo 'You can not access before login.';
+            echo '</div>';
+        }
     }
 
 

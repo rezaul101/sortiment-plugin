@@ -14,6 +14,7 @@ class Installer {
      */
     public function run() {
         $this->add_version();
+        $this->create_vendor_role();
         $this->create_tables();
         $this->create_pages();
 
@@ -33,6 +34,25 @@ class Installer {
     }
 
     /**
+     * Create new role
+     */
+    public function create_vendor_role() {
+        add_role(
+            'sortiment_vendor',
+            __( 'Sortiment Vendor' ),
+            array(
+                'read'         => true,  // true allows this capability
+                'edit_posts'   => false,
+                'delete_posts' => false,
+                'manage_options' => true,
+                
+            )
+        );
+       // $role= get_role('sortiment_vendor');
+        //$role->add_cap('sortiment_capability');
+
+    }
+    /**
      * Create necessary database tables
      *
      * @return void
@@ -50,7 +70,8 @@ class Installer {
             `employee_pass` varchar(255) NOT NULL,
             `employee_address` varchar(255) DEFAULT NULL,
             `assigned_product_id` varchar(255) DEFAULT NULL,
-            PRIMARY KEY (`employee_id`)
+            PRIMARY KEY (`employee_id`),
+            UNIQUE (employee_email)
            )  $charset_collate";
 
         if ( ! function_exists( 'dbDelta' ) ) {
@@ -64,13 +85,14 @@ class Installer {
             `company_id` int(11) NOT NULL AUTO_INCREMENT,
             `company_name` varchar(255) NOT NULL,
             `contact_person` varchar(255) DEFAULT NULL,
-            `email` varchar(255) NOT NULL,
+            `company_email` varchar(255) NOT NULL,
             `cvr_number` varchar(255) NOT NULL,
             `phone_number` varchar(255) DEFAULT NULL,
             `zip_code` varchar(255) DEFAULT NULL,
-            `address` varchar(255) DEFAULT NULL,
-            `address_2` varchar(255) DEFAULT NULL,
-            PRIMARY KEY (`company_id`)
+            `company_address` varchar(255) DEFAULT NULL,
+            `company_address_2` varchar(255) DEFAULT NULL,
+            PRIMARY KEY (`company_id`),
+            UNIQUE (company_email)
            ) $charset_collate";
 
         if ( ! function_exists( 'dbDelta' ) ) {
@@ -159,7 +181,7 @@ class Installer {
                 $sf_dashboard_page = array(
                     'post_title'    => "Dashboard",
                     'post_name'     => "dashboard",
-                    'post_content'  => "Dashboard Page",
+                    'post_content'  => "[sortiment_dashboard]",
                     'post_status'   => 'publish',
                     'post_author'   => 1,
                     'post_type'     => "Page",

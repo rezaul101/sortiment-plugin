@@ -1,14 +1,18 @@
 <?php 
+/**
+ * The Template for displaying FAQ page.
+ *
+ * @package sortiment
+ */
 
 
-		include_once('order-dashboard-header.php');
-		include_once('order-dashboard-leftside.php'); 
-
+//require_once('order-dashboard-header.php');
+//require_once('order-dashboard-leftside.php'); 
+include __DIR__ . '/order-dashboard-header.php';
+include __DIR__ . '/order-dashboard-leftside.php';
 ?>
 		
-		<div class="dashboard-right-side">
-		    
-		    
+		<div class="dashboard-right-side"> 
 		    <div class="question-div">
     		    <div class="question-left-side">
     		        <div class="question-left-side-title">
@@ -21,10 +25,10 @@
     		                    <input type="text" placeholder="Write your message here">
     		                </div>
     		                <div class="qus-ans-img-div">
-    		                    <img src="/images/image-icon.png" class="">
+    		                    <img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/image-icon.png" class="">
     		                </div>
     		                <div class="qus-ans-btn-div">
-    		                    <a class="btn blue-btn qus-ans-btn" href="#"> Send message <img src="/images/paper-plane.png" class=""> </a>
+    		                    <a class="btn blue-btn qus-ans-btn" href="#"> Send message <img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/paper-plane.png" class=""> </a>
     		                </div>
     		            </div>
     		        </div>
@@ -36,7 +40,7 @@
     		        <div class="shop-image_text-div question-product">
     		            <a href="/product-dashboard-two.php">
     		            <span class="status-text pending"> Pending approved </span>
-    		            <img src="/images/full-shirt1.png" class="shop-image">
+    		            <img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/full-shirt1.png" class="shop-image">
     		            <h5> Name of product</h5>
     		            <p>Request a price</p>
     		            </a>
@@ -44,7 +48,7 @@
     		        <div class="shop-image_text-div question-product">
     		            <a href="#">
     		            <span class="status-text approved"> Approved </span>
-    		            <img src="/images/quater-pant.png" class="shop-image">
+    		            <img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/quater-pant.png" class="shop-image">
     		            <h5> Name of product</h5>
     		            <p>Request a price</p>
     		            </a>
@@ -52,23 +56,21 @@
     		        <div class="shop-image_text-div question-product">
     		            <a href="#">
     		            <span class="status-text denied"> Denied </span>
-    		            <img src="/images/t-shirt.png" class="shop-image">
+    		            <img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/t-shirt.png" class="shop-image">
     		            <h5> Name of product</h5>
     		            <p>Request a price</p>
     		            </a>
     		        </div>
     		    </div>
 		    </div>
-		    
-		    
-
-
-
-		    
-		    
+		     
 		</div> <!-- right side end -->
 	
-<?php include_once('order-dashboard-footer.php'); ?>
+<?php
+ 
+ include __DIR__ . '/order-dashboard-footer.php';
+
+?>
 
 
 

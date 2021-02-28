@@ -1,7 +1,11 @@
-<?php include_once('order-dashboard-header.php'); ?>
-	<?php include_once('order-dashboard-leftside.php'); ?>
+<?php 
+	include __DIR__ . '/order-dashboard-header.php';
+	include __DIR__ . '/order-dashboard-leftside.php';
+
+?>
+
 		
-		<div class="dashboard-right-side">
+		<div class="dashboard-right-side"><!-- start dashboard right site -->
 		    <div class="welcome-div">
 		        <h4 class="blue-title"> Welcome to your products </h4>
 		        <p>Here you can see the special deals we have made just for you, with all the special needs of your choice.</p>
@@ -136,5 +140,8 @@
 		        </div>
 		    </div> <!-- shop div end -->
 		</div> <!-- right side end -->
-	
-<?php include_once('order-dashboard-footer.php'); ?>
+
+<?php 
+//include __DIR__ . '/order-dashboard-footer.php';
+//get_template_part('order-dashboard-footer' );
+?>

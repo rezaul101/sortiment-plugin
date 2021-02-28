@@ -127,8 +127,8 @@ class Ajax {
             $user_signon = wp_signon($info, false);
 
             if (is_wp_error($user_signon)) {
-                wp_set_current_user($user_signon->ID);
-                wp_set_auth_cookie($user_signon->ID);
+                //wp_set_current_user($user_signon->ID);
+                //wp_set_auth_cookie($user_signon->ID);
                 
                 wp_send_json_error( [
                     'message' => 'Login failed!'

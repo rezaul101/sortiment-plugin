@@ -15,6 +15,7 @@ class Frontend {
         new Frontend\RegisterShortcode();
         new Frontend\LoginShortcode();
         new Frontend\DashboardShortcode();
+        new Frontend\DashboardOrderProducts();
         
 
     }

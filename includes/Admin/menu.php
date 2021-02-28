@@ -29,19 +29,19 @@ class Menu {
      * @return void
      */
     public function plugin_page() {
-        if ( is_user_logged_in() ) {
+        //if ( is_user_logged_in() ) {
        // echo '<h1>Sortiment Deshbord</h1>';
-        wp_enqueue_script( 'sortiment-script-registation' );
-        wp_enqueue_style( 'sortiment-style' );
+        //wp_enqueue_script( 'sortiment-script-registation' );
+        //wp_enqueue_style( 'sortiment-style' );
         echo '<div class="wrap">';
         require_once SF_SORTIMENT_PLUGIN_DIR . 'includes/Frontend/views/dashboard.php';
         echo '</div>';
-        } else{
-            echo '<div class="wrap">';
-            echo 'You can not access before login.';
-            echo '</div>';
-        }
-    }
+        } //else{
+           // echo '<div class="wrap">';
+           // echo 'You are not permitted on this page';
+           // echo '</div>';
+        //}
+    //}
 
 
 }

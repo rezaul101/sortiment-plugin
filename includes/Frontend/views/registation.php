@@ -44,7 +44,7 @@
 				</div>
 
 				<div class="full-div">
-				<div class="half-div"> <span class="c_icon c-key"></span> <input type="text" id="password" name="password" placeholder="Password"> </div>
+				<div class="half-div"> <span class="c_icon c-key"></span> <input type="password" id="password" name="password" placeholder="Password"> </div>
 				<div class="half-div"> <span class="c_icon c-building"></span> <input type="text" id="cvr_number" name="cvr_number" placeholder="CVR Number"> </div>
 				</div>
 

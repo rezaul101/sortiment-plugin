@@ -1,5 +1,5 @@
 /*=== Global ===*/
-body{ font-family: 'PT Sans', sans-serif; }
+body{ font-family: 'PT Sans', sans-serif !important;}
 p { line-height: 1.7em; font-size: 14px; }
 .main-div-section {
 	max-width: 1366px !important;
@@ -400,6 +400,8 @@ h4{ font-size: 32px; }
 }
 .welcome-div p {
 	margin: 0;
+	line-height: 1.7em  !important;
+	font-size: 14px !important;
 }
 @media all and (max-width: 980px){
     .welcome-div {
@@ -429,12 +431,16 @@ h4{ font-size: 32px; }
 	width: 17%;
 }
 .shop-image_text-div h5, .shop-image_text-div p {
-	margin: 5px;
+	margin: 5px !important;
 	text-align: center;
 }
 .shop-image_text-div h5 {
 	font-size: 16px;
 	color: #000;
+}
+.shop-image_text-div p {
+	line-height: 1.7em !important;
+	font-size: 14px !important;
 }
 .shop-image_text-div a {
 	text-decoration: none;
@@ -472,13 +478,16 @@ h4{ font-size: 32px; }
 	text-align: center;
 	width: 100%;
 	color: #001fd1;
+	font-size: 16px;
 }
 .left-side-contact {
 	text-align: center;
 	margin-top: 20px;
+	font-size: 16px;
 }
 .left-side-contact a {
 	text-decoration: none;
+	color:#001fd1;
 }
 .left-side-social {
 	margin-top: 20px;
@@ -486,17 +495,19 @@ h4{ font-size: 32px; }
 .left-side-social a {
 	text-decoration: none;
 }
-.das_left_social {
+ul.das_left_social {
 	list-style: none;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	padding-left: 0;
+	margin: 0;
 }
 .das_left_social li {
-	width: 17px;
+	/*width: 24px;*/
 	font-size: 0;
 	padding-right: 10px;
+	margin: 0;
 }
 .left-side-menu {
 	width: 100%;
@@ -518,6 +529,7 @@ h4{ font-size: 32px; }
 	min-height: 36px;
 	align-items: center;
 	display: flex;
+	font-size: 20px;;
 }
 .das_left_menu li.active a {
 	background-color: #151515;
@@ -535,7 +547,8 @@ h4{ font-size: 32px; }
 .left-two a::before { background-image: url("../images/product-black.png"); }
 .left-three a::before { background-image: url("../images/information-black.png"); }
 .left-four a::before { background-image: url("../images/employee-black.png"); }
-.left-five a::before { background-image: url("../images/ask-black.png"); }
+.left-five a::before { background-image: url("../images/history-black.png"); }
+.left-six a::before { background-image: url("../images/ask-black.png"); }
 
 @media all and (max-width: 980px){
     .dashboard-left-side {

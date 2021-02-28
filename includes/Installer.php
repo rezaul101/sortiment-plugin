@@ -176,11 +176,11 @@ class Installer {
                 wp_insert_post( $sf_registation_page );
         }
         // create Dashboard page
-        $dashboard_page_exist = get_page_by_title('Dashboard', 'OBJECT', 'page');
+        $dashboard_page_exist = get_page_by_title('Sortiment Dashboard', 'OBJECT', 'page');
         if(empty($dashboard_page_exist)) {
                 $sf_dashboard_page = array(
-                    'post_title'    => "Dashboard",
-                    'post_name'     => "dashboard",
+                    'post_title'    => "Sortiment Dashboard",
+                    'post_name'     => "sortiment-dashboard",
                     'post_content'  => "[sortiment_dashboard]",
                     'post_status'   => 'publish',
                     'post_author'   => 1,

@@ -12,6 +12,16 @@ class Assets {
     function __construct() {
         add_action( 'wp_enqueue_scripts', [ $this, 'register_assets' ] );
         add_action( 'admin_enqueue_scripts', [ $this, 'register_assets' ] );
+
+        add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_asstes' ] );
+        add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_asstes' ] );
+    }
+
+    public function enqueue_asstes() {
+        wp_enqueue_script( 'sortiment-script', SF_SORTIMENT_ASSETS . '/js/custom.js', false, fileatime(SF_SORTIMENT_PATH . '/assets/js/custom.js'), true);
+        wp_enqueue_script( 'sortiment-script-registation', SF_SORTIMENT_ASSETS . '/js/registation.js', false, fileatime(SF_SORTIMENT_PATH . '/assets/js/registation.js'), true);
+
+        wp_enqueue_style( 'sortiment-style', SF_SORTIMENT_ASSETS . '/css/style.css', false, fileatime(SF_SORTIMENT_PATH . '/assets/css/style.css'));
     }
 
     /**

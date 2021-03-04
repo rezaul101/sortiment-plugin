@@ -38,8 +38,8 @@ class Installer {
      */
     public function create_vendor_role() {
         add_role(
-            'sortiment_vendor',
-            __( 'Sortiment Vendor' ),
+            'company',
+            __( 'Company' ),
             array(
                 'read'         => true,  // true allows this capability
                 'edit_posts'   => false,
@@ -150,11 +150,11 @@ class Installer {
 
         // Create post object
         // create login page
-        $login_page_exist = get_page_by_title('Login', 'OBJECT', 'page');
+        $login_page_exist = get_page_by_title('Sortiment Login', 'OBJECT', 'page');
         if(empty($login_page_exist)) {
                 $sf_login_page = array(
-                    'post_title'    => "Login",
-                    'post_name'     => "login",
+                    'post_title'    => "Sortiment Login",
+                    'post_name'     => "sortiment-login",
                     'post_content'  => "[sortiment_login]",
                     'post_status'   => 'publish',
                     'post_author'   => 1,
@@ -163,11 +163,11 @@ class Installer {
                 wp_insert_post( $sf_login_page );
         }
         // create Registation page
-        $registation_page_exist = get_page_by_title('Registation', 'OBJECT', 'page');
+        $registation_page_exist = get_page_by_title('Sortiment Registation', 'OBJECT', 'page');
         if(empty($registation_page_exist)) {
                 $sf_registation_page = array(
-                    'post_title'    => "Registation",
-                    'post_name'     => "registation",
+                    'post_title'    => "Sortiment Registation",
+                    'post_name'     => "sortiment-registation",
                     'post_content'  => "[sortiment_registration]",
                     'post_status'   => 'publish',
                     'post_author'   => 1,
@@ -189,9 +189,219 @@ class Installer {
                 wp_insert_post( $sf_dashboard_page );
         }
 
+        // create Sortiment Order Products page
+        $order_products_exist = get_page_by_title('Sortiment Order Products', 'OBJECT', 'page');
+        if(empty($order_products_exist)) {
+                $sf_order_products_page = array(
+                    'post_title'    => "Sortiment Order Products",
+                    'post_name'     => "sortiment-order-products",
+                    'post_content'  => "[sortiment_order_products]",
+                    'post_status'   => 'publish',
+                    'post_author'   => 1,
+                    'post_type'     => "Page",
+                );
+                wp_insert_post( $sf_order_products_page );
+        }
+        // create SortimentSortiment Order product Single page
+        $order_product_single_page_exist = get_page_by_title('Sortiment Order Product Single', 'OBJECT', 'page');
+        if(empty($order_product_single_page_exist)) {
+                $sf_order_product_single_page = array(
+                    'post_title'    => "Sortiment Order Product Single",
+                    'post_name'     => "sortiment-order-products-single",
+                    'post_content'  => "[sortiment_order_products_single]",
+                    'post_status'   => 'publish',
+                    'post_author'   => 1,
+                    'post_type'     => "Page",
+                );
+                wp_insert_post( $sf_order_product_single_page );
+        }
+        // create Sortiment My Products page
+        $my_products_page_exist = get_page_by_title('Sortiment My Products', 'OBJECT', 'page');
+        if(empty($my_products_page_exist)) {
+                $sf_my_products_page = array(
+                    'post_title'    => "Sortiment My Products",
+                    'post_name'     => "sortiment-my-products",
+                    'post_content'  => "[sortiment_my_products]",
+                    'post_status'   => 'publish',
+                    'post_author'   => 1,
+                    'post_type'     => "Page",
+                );
+                wp_insert_post( $sf_my_products_page );
+        }
+        // create Sortiment My Products Single page
+        $my_products_single_page_exist = get_page_by_title('Sortiment My Products Single', 'OBJECT', 'page');
+        if(empty($my_products_single_page_exist)) {
+                $sf_my_products_single_page = array(
+                    'post_title'    => "Sortiment My Products Single",
+                    'post_name'     => "sortiment-my-products-single",
+                    'post_content'  => "[sortiment_my_products_single]",
+                    'post_status'   => 'publish',
+                    'post_author'   => 1,
+                    'post_type'     => "Page",
+                );
+                wp_insert_post( $sf_my_products_single_page );
+        }
+        // create Sortiment My Products Single page
+        $my_products_deny_comment_page_exist = get_page_by_title('Sortiment My Products Deny  Comment', 'OBJECT', 'page');
+        if(empty($my_products_deny_comment_page_exist)) {
+                $sf_my_products_deny_comment_page = array(
+                    'post_title'    => "Sortiment My Products Deny Comment",
+                    'post_name'     => "sortiment-my-products-deny-comment",
+                    'post_content'  => "[sortiment_my_products_deny_comment]",
+                    'post_status'   => 'publish',
+                    'post_author'   => 1,
+                    'post_type'     => "Page",
+                );
+                wp_insert_post( $sf_my_products_deny_comment_page );
+        }
+        // create Sortiment My Products Cart page
+        $my_products_cart_page_exist = get_page_by_title('Sortiment My Products Cart', 'OBJECT', 'page');
+        if(empty($my_products_cart_page_exist)) {
+                $sf_my_products_cart_page = array(
+                    'post_title'    => "Sortiment My Products Cart",
+                    'post_name'     => "sortiment-my-products-cart",
+                    'post_content'  => "[sortiment_my_products_cart]",
+                    'post_status'   => 'publish',
+                    'post_author'   => 1,
+                    'post_type'     => "Page",
+                );
+                wp_insert_post( $sf_my_products_cart_page );
+        }
+        // create Sortiment My Products Checkout page
+        $my_products_checkout_page_exist = get_page_by_title('Sortiment My Products Checkout', 'OBJECT', 'page');
+        if(empty($my_products_checkout_page_exist)) {
+                $sf_my_products_checkout_page = array(
+                    'post_title'    => "Sortiment My Products Checkout",
+                    'post_name'     => "sortiment-my-products-checkout",
+                    'post_content'  => "[sortiment_my_products_checkout]",
+                    'post_status'   => 'publish',
+                    'post_author'   => 1,
+                    'post_type'     => "Page",
+                );
+                wp_insert_post( $sf_my_products_checkout_page );
+        }
+        // create Sortiment Company Information page
+        $company_information_page_exist = get_page_by_title('Sortiment Company Information', 'OBJECT', 'page');
+        if(empty($company_information_page_exist)) {
+                $sf_company_information_page = array(
+                    'post_title'    => "Sortiment Company Information",
+                    'post_name'     => "sortiment-company-information",
+                    'post_content'  => "[sortiment_company_information]",
+                    'post_status'   => 'publish',
+                    'post_author'   => 1,
+                    'post_type'     => "Page",
+                );
+                wp_insert_post( $sf_company_information_page );
+        }
+
+            // create Sortiment Sortiment Your Employees page
+            $your_employees_exist = get_page_by_title('Sortiment Your Employees', 'OBJECT', 'page');
+            if(empty($your_employees_exist)) {
+                    $sf_your_employees_page = array(
+                        'post_title'    => "Sortiment Your Employees",
+                        'post_name'     => "sortiment-your-employees",
+                        'post_content'  => "[sortiment_your_employees]",
+                        'post_status'   => 'publish',
+                        'post_author'   => 1,
+                        'post_type'     => "Page",
+                    );
+                    wp_insert_post( $sf_your_employees_page );
+            }
+            // create Sortiment Sortiment Your Employees Order page
+            $your_employees_order_exist = get_page_by_title('Sortiment Your Employees Order', 'OBJECT', 'page');
+            if(empty($your_employees_order_exist)) {
+                    $sf_your_employees_order_page = array(
+                        'post_title'    => "Sortiment Your Employees Order",
+                        'post_name'     => "sortiment-your-employees-order",
+                        'post_content'  => "[sortiment_your_employees_order]",
+                        'post_status'   => 'publish',
+                        'post_author'   => 1,
+                        'post_type'     => "Page",
+                    );
+                    wp_insert_post( $sf_your_employees_order_page );
+            }
+
+                // create SortimentSortiment Order History page
+                $order_history_page_exist = get_page_by_title('Sortiment Order History', 'OBJECT', 'page');
+                if(empty($order_history_page_exist)) {
+                        $sf_order_history_page = array(
+                            'post_title'    => "Sortiment Order History",
+                            'post_name'     => "sortiment-order-history",
+                            'post_content'  => "[sortiment_order_history]",
+                            'post_status'   => 'publish',
+                            'post_author'   => 1,
+                            'post_type'     => "Page",
+                        );
+                        wp_insert_post( $sf_order_history_page );
+                }
+                // create SortimentSortiment Order Status page
+                $order_status_page_exist = get_page_by_title('Sortiment Order Status', 'OBJECT', 'page');
+                if(empty($order_status_page_exist)) {
+                        $sf_order_status_page = array(
+                            'post_title'    => "Sortiment Order Status",
+                            'post_name'     => "sortiment-order-status",
+                            'post_content'  => "[sortiment_order_status]",
+                            'post_status'   => 'publish',
+                            'post_author'   => 1,
+                            'post_type'     => "Page",
+                        );
+                        wp_insert_post( $sf_order_status_page );
+                }
+                // create SortimentSortiment Order Status Step2 page
+                $order_status_step2_page_exist = get_page_by_title('Sortiment Order Status Step2', 'OBJECT', 'page');
+                if(empty($order_status_step2_page_exist)) {
+                        $sf_order_status_step2_page = array(
+                            'post_title'    => "Sortiment Order Status Step2",
+                            'post_name'     => "sortiment-order-status-step2",
+                            'post_content'  => "[sortiment_order_status_step2]",
+                            'post_status'   => 'publish',
+                            'post_author'   => 1,
+                            'post_type'     => "Page",
+                        );
+                        wp_insert_post( $sf_order_status_step2_page );
+                }
+                // create SortimentSortiment Order Status Step3 page
+                $order_status_step3_page_exist = get_page_by_title('Sortiment Order Status Step3', 'OBJECT', 'page');
+                if(empty($order_status_step3_page_exist)) {
+                        $sf_order_status_step3_page = array(
+                            'post_title'    => "Sortiment Order Status Step3",
+                            'post_name'     => "sortiment-order-status-step3",
+                            'post_content'  => "[sortiment_order_status_step3]",
+                            'post_status'   => 'publish',
+                            'post_author'   => 1,
+                            'post_type'     => "Page",
+                        );
+                        wp_insert_post( $sf_order_status_step3_page );
+                }
+                // create SortimentSortiment Order Status Step4 page
+                $order_status_step4_page_exist = get_page_by_title('Sortiment Order Status Step4', 'OBJECT', 'page');
+                if(empty($order_status_step4_page_exist)) {
+                        $sf_order_status_step4_page = array(
+                            'post_title'    => "Sortiment Order Status Step4",
+                            'post_name'     => "sortiment-order-status-step4",
+                            'post_content'  => "[sortiment_order_status_step4]",
+                            'post_status'   => 'publish',
+                            'post_author'   => 1,
+                            'post_type'     => "Page",
+                        );
+                        wp_insert_post( $sf_order_status_step4_page );
+                }
+                // create Sortiment Ask A Question page
+                $ask_a_question_page_exist = get_page_by_title('Sortiment Ask A Question', 'OBJECT', 'page');
+                if(empty($ask_a_question_page_exist)) {
+                        $sf_ask_a_question_page = array(
+                            'post_title'    => "Sortiment Ask A Question",
+                            'post_name'     => "sortiment-ask-a-question",
+                            'post_content'  => "[sortiment_ask_a_question]",
+                            'post_status'   => 'publish',
+                            'post_author'   => 1,
+                            'post_type'     => "Page",
+                        );
+                        wp_insert_post( $sf_ask_a_question_page );
+                }
+
     }
     
 
 
 }
-

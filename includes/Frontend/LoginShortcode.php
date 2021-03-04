@@ -27,7 +27,8 @@ class LoginShortcode {
 
     // The callback function that will replace 
     function sortiment_login_shortcode( $atts, $content = '') {
-        wp_enqueue_script( 'sortiment-script-registation' );
+        if ( !is_user_logged_in() ) {
+        wp_enqueue_script( 'sortiment-script-login-registation' );
         wp_enqueue_style( 'sortiment-style' );
 
         ob_start();
@@ -35,9 +36,14 @@ class LoginShortcode {
         //require_once SF_SORTIMENT_PLUGIN_DIR . '/templates/registation.php';
         include __DIR__ . '/views/login.php';
         return ob_get_clean();
+        } else{
+            echo '<div class="wrap">';
+             echo 'You are already logged in user. ';
+             wp_loginout();
+             echo '</div>';
+         }
     }
 
-    
 
 
 }

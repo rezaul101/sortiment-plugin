@@ -1,5 +1,14 @@
-<?php include_once('order-dashboard-header.php'); ?>
-	<?php include_once('order-dashboard-leftside.php'); ?>
+<?php
+/**
+ * The Template for displaying Dashboard Company Information.
+ *
+ * @package sortiment
+ */ 
+include __DIR__ . '/dashboard-header.php';
+include __DIR__ . '/dashboard-leftside.php';
+
+
+?>
 		
 		<div class="dashboard-right-side">
 		    
@@ -10,18 +19,18 @@
     		        <div class="rightside-form-div">
     		            <form action="#">
         				<div class="full-div">
-        				<div class="half-div"> <label>Company name</label> <br/> <input type="text" id="fname" name="fname" placeholder="Company name here"> </div>
-        				<div class="half-div"> <label>Zip code</label> <br/> <input type="text" id="fname" name="fname" placeholder="Company name"> </div>
+        				<div class="half-div"> <label>Company name</label> <input type="text" id="fname" name="fname" placeholder="Company name here"> </div>
+        				<div class="half-div"> <label>Zip code</label> <input type="text" id="fname" name="fname" placeholder="Company name"> </div>
         				</div>				
         				
         				<div class="full-div">
-        				<div class="half-div"> <label>Contact person</label> <br/> <input type="text" id="fname" name="fname" placeholder="Name of contact person"> </div>
-        				<div class="half-div"> <label>Address</label> <br/> <input type="text" id="fname" name="fname" placeholder="Abcd"> </div>
+        				<div class="half-div"> <label>Contact person</label> <input type="text" id="fname" name="fname" placeholder="Name of contact person"> </div>
+        				<div class="half-div"> <label>Address</label> <input type="text" id="fname" name="fname" placeholder="Abcd"> </div>
         				</div>
         
         				<div class="full-div">
-        				<div class="half-div"> <label>Phone number</label> <br/> <input type="text" id="fname" name="fname" placeholder="+00 00 00 00"> </div>
-        				<div class="half-div"> <label>Address 2</label> <br/> <input type="text" id="fname" name="fname" placeholder="Abcd"> </div>
+        				<div class="half-div"> <label>Phone number</label> <input type="text" id="fname" name="fname" placeholder="+00 00 00 00"> </div>
+        				<div class="half-div"> <label>Address 2</label> <input type="text" id="fname" name="fname" placeholder="Abcd"> </div>
         				</div>
         
         				<div class="full-div">
@@ -30,7 +39,7 @@
         			</form>
     		        </div>
     		        <div class="rightside-image-div">
-    		            <img src="/images/holder.png" class="company-information-img">
+    		            <img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/holder.png" class="company-information-img">
     		        </div>
     		        
     		        
@@ -41,27 +50,27 @@
     		        <div class="format-div">
     		            JPG Format
     		            <input type='file' id="imgInp" class="inputimage"  />
-    		            <img id="blah" src="/images/upload-icon.png" class="upload-img" />  
+    		            <img id="blah" src="<?php echo SF_SORTIMENT_ASSETS ?>/images/upload-icon.png" class="upload-img" />  
     		        </div>
     		        <div class="format-div">
     		            PNG Format
     		            <input type='file' id="imgInp" class="inputimage"  />
-    		            <img id="blah" src="/images/upload-icon.png" class="upload-img" />
+    		            <img id="blah" src="<?php echo SF_SORTIMENT_ASSETS ?>/images/upload-icon.png" class="upload-img" />
     		        </div>
     		        <div class="format-div">
     		            AI Format
     		            <input type='file' id="imgInp" class="inputimage"  />
-    		            <img id="blah" src="/images/upload-icon.png" class="upload-img" />
+    		            <img id="blah" src="<?php echo SF_SORTIMENT_ASSETS ?>/images/upload-icon.png" class="upload-img" />
     		        </div>
     		        <div class="format-div">
     		            SVG Format
     		            <input type='file' id="imgInp" class="inputimage" />
-    		            <img id="blah" src="/images/upload-icon.png" class="upload-img" />
+    		            <img id="blah" src="<?php echo SF_SORTIMENT_ASSETS ?>/images/upload-icon.png" class="upload-img" />
     		        </div>
     		        <div class="format-div">
     		            PDF Format
     		            <input type='file' id="imgInp" class="inputimage"  />
-    		            <img id="blah" src="/images/upload-icon.png" class="upload-img" />
+    		            <img id="blah" src="<?php echo SF_SORTIMENT_ASSETS ?>/images/upload-icon.png" class="upload-img" />
     		        </div>
     		    </div>
     		    
@@ -70,27 +79,27 @@
     		        <div class="format-div">
     		            JPG Format
     		            <input type='file' id="imgInp" class="inputimage"  />
-    		            <img id="blah" src="/images/upload-icon.png" class="upload-img" />  
+    		            <img id="blah" src="<?php echo SF_SORTIMENT_ASSETS ?>/images/upload-icon.png" class="upload-img" />  
     		        </div>
     		        <div class="format-div">
     		            PNG Format
     		            <input type='file' id="imgInp" class="inputimage"  />
-    		            <img id="blah" src="/images/upload-icon.png" class="upload-img" />
+    		            <img id="blah" src="<?php echo SF_SORTIMENT_ASSETS ?>/images/upload-icon.png" class="upload-img" />
     		        </div>
     		        <div class="format-div">
     		            AI Format
     		            <input type='file' id="imgInp" class="inputimage"  />
-    		            <img id="blah" src="/images/upload-icon.png" class="upload-img" />
+    		            <img id="blah" src="<?php echo SF_SORTIMENT_ASSETS ?>/images/upload-icon.png" class="upload-img" />
     		        </div>
     		        <div class="format-div">
     		            SVG Format
     		            <input type='file' id="imgInp" class="inputimage" />
-    		            <img id="blah" src="/images/upload-icon.png" class="upload-img" />
+    		            <img id="blah" src="<?php echo SF_SORTIMENT_ASSETS ?>/images/upload-icon.png" class="upload-img" />
     		        </div>
     		        <div class="format-div">
     		            PDF Format
     		            <input type='file' id="imgInp" class="inputimage"  />
-    		            <img id="blah" src="/images/upload-icon.png" class="upload-img" />
+    		            <img id="blah" src="<?php echo SF_SORTIMENT_ASSETS ?>/images/upload-icon.png" class="upload-img" />
     		        </div>
     		    </div>
     		    
@@ -99,27 +108,27 @@
     		        <div class="format-div">
     		            JPG Format
     		            <input type='file' id="imgInp" class="inputimage"  />
-    		            <img id="blah" src="/images/upload-icon.png" class="upload-img" />  
+    		            <img id="blah" src="<?php echo SF_SORTIMENT_ASSETS ?>/images/upload-icon.png" class="upload-img" />  
     		        </div>
     		        <div class="format-div">
     		            PNG Format
     		            <input type='file' id="imgInp" class="inputimage"  />
-    		            <img id="blah" src="/images/upload-icon.png" class="upload-img" />
+    		            <img id="blah" src="<?php echo SF_SORTIMENT_ASSETS ?>/images/upload-icon.png" class="upload-img" />
     		        </div>
     		        <div class="format-div">
     		            AI Format
     		            <input type='file' id="imgInp" class="inputimage"  />
-    		            <img id="blah" src="/images/upload-icon.png" class="upload-img" />
+    		            <img id="blah" src="<?php echo SF_SORTIMENT_ASSETS ?>/images/upload-icon.png" class="upload-img" />
     		        </div>
     		        <div class="format-div">
     		            SVG Format
     		            <input type='file' id="imgInp" class="inputimage" />
-    		            <img id="blah" src="/images/upload-icon.png" class="upload-img" />
+    		            <img id="blah" src="<?php echo SF_SORTIMENT_ASSETS ?>/images/upload-icon.png" class="upload-img" />
     		        </div>
     		        <div class="format-div">
     		            PDF Format
     		            <input type='file' id="imgInp" class="inputimage"  />
-    		            <img id="blah" src="/images/upload-icon.png" class="upload-img" />
+    		            <img id="blah" src="<?php echo SF_SORTIMENT_ASSETS ?>/images/upload-icon.png" class="upload-img" />
     		        </div>
     		    </div>
     		    
@@ -128,44 +137,34 @@
     		        <div class="format-div">
     		            JPG Format
     		            <input type='file' id="imgInp" class="inputimage"  />
-    		            <img id="blah" src="/images/upload-icon.png" class="upload-img" />  
+    		            <img id="blah" src="<?php echo SF_SORTIMENT_ASSETS ?>/images/upload-icon.png" class="upload-img" />  
     		        </div>
     		        <div class="format-div">
     		            PNG Format
     		            <input type='file' id="imgInp" class="inputimage"  />
-    		            <img id="blah" src="/images/upload-icon.png" class="upload-img" />
+    		            <img id="blah" src="<?php echo SF_SORTIMENT_ASSETS ?>/images/upload-icon.png" class="upload-img" />
     		        </div>
     		        <div class="format-div">
     		            AI Format
     		            <input type='file' id="imgInp" class="inputimage"  />
-    		            <img id="blah" src="/images/upload-icon.png" class="upload-img" />
+    		            <img id="blah" src="<?php echo SF_SORTIMENT_ASSETS ?>/images/upload-icon.png" class="upload-img" />
     		        </div>
     		        <div class="format-div">
     		            SVG Format
     		            <input type='file' id="imgInp" class="inputimage" />
-    		            <img id="blah" src="/images/upload-icon.png" class="upload-img" />
+    		            <img id="blah" src="<?php echo SF_SORTIMENT_ASSETS ?>/images/upload-icon.png" class="upload-img" />
     		        </div>
     		        <div class="format-div">
     		            PDF Format
     		            <input type='file' id="imgInp" class="inputimage"  />
-    		            <img id="blah" src="/images/upload-icon.png" class="upload-img" />
+    		            <img id="blah" src="<?php echo SF_SORTIMENT_ASSETS ?>/images/upload-icon.png" class="upload-img" />
     		        </div>
     		    </div>
 		        
-		        
-		        
-		        
-		    </div> <!-- rproduct-page-right div end -->
-		    
-		    
-
-
-
-		    
-		    
+		    </div> <!-- rproduct-page-right div end -->  
 		</div> <!-- right side end -->
 	
-<?php include_once('order-dashboard-footer.php'); ?>
+<?php include __DIR__ . '/dashboard-footer.php'; ?>
 
 
 

@@ -19,7 +19,7 @@
 			<div class="divider-div"></div>
 			
 			<div class="button-div">
-				<a class="btn outline-btn" href="/login"> Log in</a>
+				<a class="btn outline-btn" href="<?php echo home_url('sortiment-login') ?>"> Log in</a>
 			</div>
 			
 			<p>Do not have any account yet?<br/> Please register with the formular to the right</p>
@@ -51,12 +51,12 @@
 				<div class="full-div">
 					<?php wp_nonce_field( 'new-user' ); ?>
 					<input type="hidden" name="action" value="softx_sortiment_registation">
-            		<input class="btn blue-btn" type="submit" id="submit" name="submit" value="<?php esc_attr_e( 'Create account', 'softx-sortiment' ); ?>">
+            		<input class="btn blue-btn create-btn" type="submit" id="submit" name="submit" value="<?php esc_attr_e( 'Create account', 'softx-sortiment' ); ?>">
 				</div>
 			</form>
 			
 
-			<h3 class="blue-subtitle"> <a href="/login"> Login here </a> </h3>
+			<h3 class="blue-subtitle"> <a href="<?php echo home_url('sortiment-login') ?>"> Login here </a> </h3>
 		</div> <!-- left side end -->
 	</div>  <!-- row end -->
 </div>  <!-- section end -->

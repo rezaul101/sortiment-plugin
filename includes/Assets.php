@@ -13,17 +13,17 @@ class Assets {
         add_action( 'wp_enqueue_scripts', [ $this, 'register_assets' ] );
         add_action( 'admin_enqueue_scripts', [ $this, 'register_assets' ] );
 
-        add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_asstes' ] );
-        add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_asstes' ] );
+        //add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_asstes' ] );
+        //add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_asstes' ] );
     }
+    /*
+        public function enqueue_asstes() {
+            wp_enqueue_script( 'sortiment-script', SF_SORTIMENT_ASSETS . '/js/custom.js', false, fileatime(SF_SORTIMENT_PATH . '/assets/js/custom.js'), true);
+            wp_enqueue_script( 'sortiment-script-login-registation', SF_SORTIMENT_ASSETS . '/js/login-registation.js', false, fileatime(SF_SORTIMENT_PATH . '/assets/js/registation.js'), true);
 
-    public function enqueue_asstes() {
-        wp_enqueue_script( 'sortiment-script', SF_SORTIMENT_ASSETS . '/js/custom.js', false, fileatime(SF_SORTIMENT_PATH . '/assets/js/custom.js'), true);
-        wp_enqueue_script( 'sortiment-script-registation', SF_SORTIMENT_ASSETS . '/js/registation.js', false, fileatime(SF_SORTIMENT_PATH . '/assets/js/registation.js'), true);
-
-        wp_enqueue_style( 'sortiment-style', SF_SORTIMENT_ASSETS . '/css/style.css', false, fileatime(SF_SORTIMENT_PATH . '/assets/css/style.css'));
-    }
-
+            wp_enqueue_style( 'sortiment-style', SF_SORTIMENT_ASSETS . '/css/style.css', false, fileatime(SF_SORTIMENT_PATH . '/assets/css/style.css'));
+        }
+    */
     /**
      * All available scripts
      *
@@ -36,9 +36,9 @@ class Assets {
                 'version' => filemtime( SF_SORTIMENT_PATH . '/assets/js/custom.js' ),
                 'deps'    => [ 'jquery' ]
             ],
-            'sortiment-script-registation' => [
-                'src'     => SF_SORTIMENT_ASSETS . '/js/registation.js',
-                'version' => filemtime( SF_SORTIMENT_PATH . '/assets/js/registation.js' ),
+            'sortiment-script-login-registation' => [
+                'src'     => SF_SORTIMENT_ASSETS . '/js/login-registation.js',
+                'version' => filemtime( SF_SORTIMENT_PATH . '/assets/js/login-registation.js' ),
                 'deps'    => [ 'jquery' ]
             ]
         ];
@@ -83,10 +83,10 @@ class Assets {
             wp_register_style( $handle, $style['src'], $deps, $style['version'] );
         }
         
-        wp_localize_script( 'sortiment-script-registation', 'Sortiment', [
+        wp_localize_script( 'sortiment-script-login-registation', 'Sortiment', [
             'ajaxurl' => admin_url( 'admin-ajax.php' ),
             'error'   => __( 'Something went wrong.', 'softx-sortiment' ),
-            'baseurl' => home_url ( 'dashboard' ),
+            'baseurl' => home_url ( 'sortiment-dashboard' ),
             
             
         ] );

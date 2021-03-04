@@ -31,12 +31,12 @@
         var homeUrl = Sortiment.baseurl;
         $.post(Sortiment.ajaxurl, data, function(response) {
             if (response.success) {
-                console.log(response.data.message);
+                alert(response.data.message);
                  document.location.href= homeUrl;
                 
                
             } else {
-                console.log(response.data.message);
+                alert(response.data.message);
             }
         })
         .fail(function() {

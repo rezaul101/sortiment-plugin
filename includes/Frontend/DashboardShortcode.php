@@ -28,8 +28,8 @@ class DashboardShortcode {
     // The callback function that will replace 
     function sortiment_dashboard_shortcode( $atts, $content = '') {
        //if ( is_user_logged_in() ) {
-       //wp_enqueue_script( 'sortiment-script-registation' );
-       // wp_enqueue_style( 'sortiment-style' );
+       wp_enqueue_script( 'sortiment-script' );
+        wp_enqueue_style( 'sortiment-style' );
        
         ob_start();
         

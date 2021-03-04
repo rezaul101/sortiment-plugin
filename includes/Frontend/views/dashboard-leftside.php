@@ -5,12 +5,12 @@
 		<div class="dashboard-left-side"> <!-- start dashboard left site -->
 		    <div class="left-side-menu">
 		        <ul class="das_left_menu">
-		            <li class="left-one active"> <a href="<?php echo home_url('order-products') ?>"> Order Products </a> </li>
-		            <li class="left-two"> <a href="<?php echo SF_SORTIMENT_INCLUDES ?>/Frontend/views/dashboard-my-products.php"> My Products </a> </li>
-		            <li class="left-three"> <a href="<?php echo SF_SORTIMENT_INCLUDES ?>/Frontend/views/dashboard-company-information.php"> Your company information </a> </li>
-		            <li class="left-four"> <a href="<?php echo SF_SORTIMENT_INCLUDES ?>/Frontend/views/dashboard-your-employees.php"> Your Employees </a> </li>
-		            <li class="left-five"> <a href="<?php echo SF_SORTIMENT_INCLUDES ?>/Frontend/views/dashboard-order-history.php"> Order history </a> </li>
-		            <li class="left-six"> <a href="<?php echo SF_SORTIMENT_INCLUDES ?>/Frontend/views/dashboard-ask-a-question.php"> Ask a question </a> </li>
+		            <li class="left-one active"> <a href="<?php echo home_url('sortiment-order-products') ?>"> Order Products </a> </li>
+		            <li class="left-two"> <a href="<?php echo home_url('sortiment-my-products') ?>"> My Products </a> </li>
+		            <li class="left-three"> <a href="<?php echo home_url('sortiment-company-information') ?>"> Your company information </a> </li>
+		            <li class="left-four"> <a href="<?php echo home_url('sortiment-your-employees') ?>"> Your Employees </a> </li>
+		            <li class="left-five"> <a href="<?php echo home_url('sortiment-order-history') ?>"> Order history </a> </li>
+		            <li class="left-six"> <a href="<?php echo home_url('sortiment-ask-a-question') ?>"> Ask a question </a> </li>
 		        </ul>
 		    </div>
 		    <div class="left-side-text">
@@ -30,4 +30,6 @@
 		</div><!-- left side end -->
 		
 	<!-- main div row end other page. other wise structure broken -->	
+	
+
 		

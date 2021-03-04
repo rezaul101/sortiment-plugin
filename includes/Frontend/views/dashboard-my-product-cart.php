@@ -1,11 +1,20 @@
-<?php include_once('order-dashboard-header.php'); ?>
-	<?php include_once('order-dashboard-leftside.php'); ?>
+<?php
+/**
+ * The Template for displaying Dashboard products Cart Page.
+ *
+ * @package sortiment
+ */ 
+include __DIR__ . '/dashboard-header.php';
+include __DIR__ . '/dashboard-leftside.php';
+
+
+?>
 		
 		<div class="dashboard-right-side">
 		    
 		    <div class="product-page-right">
 		        <div class="go-back-div">
-		            <a href="product-dashboard-two.php"><img src="/images/cart.png" class="arrow-icon"> <strong> Cart </strong> </a>
+		            <a href="<?php echo home_url('sortiment-my-products-cart') ?>"><img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/cart.png" class="arrow-icon"> <strong> Cart </strong> </a>
 		        </div>
 		        <div class="product-image-text-div product_cart_main_div">
 		            <div class="product-cart-div">
@@ -19,7 +28,7 @@
                                 
                                 <tr>
                                 <td class="cart-porduct">
-                                <div class="cart-img"><img src="/images/full-shirt2.png"></div>
+                                <div class="cart-img"><img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/full-shirt2.png"></div>
                                 <div class="cart-text"><strong> Name of product </strong><br>Product category </div>
                                 </td>
                                 <td> <button id="remove_agent"> – </button> <span class="count">1</span> <button id="add_agent"> +</button></td>
@@ -53,14 +62,14 @@
                             <h3>We have found 12 employees in your company</h3>
                             <div class="excel-manually-div">
                                 <div class="excel-upload-div">
-                                    <img src="/images/excel-icon.png" >
+                                    <img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/excel-icon.png" >
                                     <div>
                                         <h4>Import employees using excel</h4>
                                         click here to download Excel template
                                     </div>
                                 </div>
-                                <div class="manually-upload-div">
-                                    <img src="/images/plus-icon.png" >
+                                <div class="manually-upload-div" onclick="openForm()">
+                                    <img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/plus-icon.png" >
                                     <div>
                                         <h4>Add employees manually</h4>
                                     </div>
@@ -82,24 +91,47 @@
                                   <input type="text" id="informationCompnay" placeholder="Company name"><br>
                                   <input type="text" id="informationpostalCode" placeholder="Postal code"><br>
                                   <input type="text" id="informationAddress" placeholder="Address"><br><br>
-                                  <a type="submit"href="/product-dashboard-checkout.php" class="btn blue-btn getbutton"> Next </a> 
+                                  <a type="submit"href="<?php echo home_url('sortiment-my-products-checkout') ?>" class="btn blue-btn getbutton"> Next </a> 
                                 </form> 
     		                </div>
 		                </div>
 		            </div>
 		        </div>
 		        
-		    </div> <!-- rproduct-page-right div end -->
-		    
-		    
-
-
-
-		    
-		    
+		    </div> <!-- rproduct-page-right div end -->    
+			
+			<div class="form-popup addemployee" id="myForm">
+               
+               <form action="#" class="form-container addemployee-form">
+                   <img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/close-icon.png" class="close-icon"  onclick="closeForm()" />     
+                   
+                   <div class="modal-header">
+                        <h3 class="request-title"><strong>Add employees manually</strong></h3>
+                        <p class="sub-title"> We will automatically generate a user and password for each employee </p>
+                   </div>     
+                   <div class="request-form">
+                       <div class="name-field">
+                           <label for="title"><b>Name & Last name</b></label>
+                           <input type="text" id="fullname" name="fullname" placeholder="Employee name" >
+                       </div>
+                       <div class="email-field">
+                           <label for="email"> <b>Email</b> </label>
+                           <input type="text" id="email" name="email" placeholder="Employee email">
+                       </div>
+                       
+                    </div>
+                   
+                   <div class="buttn-item">
+                       <a class="btn add-btn addanotherbtn" href="#"> Add another </a>
+                       <a class="btn blue-btn requestbtn" href="#"> Done </a>
+                   </div>    
+               </form>
+           </div>
+			
+			
 		</div> <!-- right side end -->
 	
-<?php include_once('order-dashboard-footer.php'); ?>
+<?php include __DIR__ . '/dashboard-footer.php'; ?>
 
 
 

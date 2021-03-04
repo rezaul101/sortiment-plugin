@@ -4,12 +4,10 @@
  *
  * @package sortiment
  */
+include __DIR__ . '/dashboard-header.php';
+include __DIR__ . '/dashboard-leftside.php';
 
 
-//require_once('order-dashboard-header.php');
-//require_once('order-dashboard-leftside.php'); 
-include __DIR__ . '/order-dashboard-header.php';
-include __DIR__ . '/order-dashboard-leftside.php';
 ?>
 		
 		<div class="dashboard-right-side"> 
@@ -65,12 +63,7 @@ include __DIR__ . '/order-dashboard-leftside.php';
 		    </div>
 		     
 		</div> <!-- right side end -->
-	
-<?php
- 
- include __DIR__ . '/order-dashboard-footer.php';
-
-?>
+<?php include __DIR__ . '/dashboard-footer.php'; ?>
 
 
 

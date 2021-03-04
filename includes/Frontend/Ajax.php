@@ -98,7 +98,7 @@ class Ajax {
             //'first_name'        =>   $name,
             //'last_name'         =>   $name,
             //'nickname'          =>   $name,
-            'role'              =>  'sortiment_vendor'
+            'role'              =>  'company',
     
         );
         $user = wp_insert_user( $userdata );

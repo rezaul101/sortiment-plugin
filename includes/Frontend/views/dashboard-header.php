@@ -27,9 +27,9 @@
                     $current_user = wp_get_current_user();
                     if ( is_user_logged_in() ) { 
 					echo 'Welcome : ' . $current_user->user_login . "<br/>"; 
-					echo ' <a href="'.wp_logout_url(home_url('registation')).'" title="Logout"> Logout</a>';} 
+					echo ' <a href="'.wp_logout_url(home_url('sortiment-registation')).'" title="Logout"> Logout</a>';} 
 					else { 
-						echo '<a href="'. home_url('login').'" title="Login">Login</a>';
+						echo '<a href="'. home_url('sortiment-login').'" title="Login">Login</a>';
 						} ?> </strong>
 					<!--<a href="<?php //echo wp_logout_url( home_url('registation')); ?>" title="Logout">Logout</a>-->
 

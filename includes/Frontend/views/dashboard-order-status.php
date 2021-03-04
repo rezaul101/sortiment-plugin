@@ -1,23 +1,31 @@
-<?php include_once('order-dashboard-header.php'); ?>
-	<?php include_once('order-dashboard-leftside.php'); ?>
-		
+<?php
+/**
+ * The Template for displaying Dashboard Order Status.
+ *
+ * @package sortiment
+ */ 
+include __DIR__ . '/dashboard-header.php';
+include __DIR__ . '/dashboard-leftside.php';
+
+
+?>	
 		<div class="dashboard-right-side">
 		    
 		    <div class="product-page-right">
 		        <div class="go-back-div">
-		            <a href="#"><img src="/images/history.png" class="arrow-icon"> <strong> Order status </strong> </a>
+		            <a href="#"><img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/history.png" class="arrow-icon"> <strong> Order status </strong> </a>
 		            <a class="order_link"> <strong> Viewing order: #1 </strong> </a>
 		        </div>
 		        
 		        
 		        <div class="product-image-text-div order-status-div">
     		        <div class="product-cart-div">
-    		            <div class="product-status-div"> <a href="/order-status-two.php">
+    		            <div class="product-status-div"> <a href="<?php echo home_url( 'sortiment-order-status-step2' ) ?>">
         		            <div class="order-status-table">
-        		                <img src="/images/right.png" class="table-icon">
+        		                <img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/right.png" class="table-icon">
         		            </div>
         		            <div class="order-status-table o-s-t-img">
-        		                <img src="/images/bag.png" class="table-icon">
+        		                <img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/bag.png" class="table-icon">
         		            </div>
         		            <div class="order-status-table">
         		                <p> <strong> Order placed </strong> <br/> we have receive your order. </p>
@@ -30,7 +38,7 @@
     		        
     		        <div class="information-div order-status-details">
     		            <div class="order-status-image-div">
-    		                <img src="/images/product-one.jpg" calss="productimg">
+    		                <img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/product-one.jpg" calss="productimg">
     		            </div>
     		            <div class="order-status-details-div">
     		                <p> <strong> Name of product </strong> </p>
@@ -54,14 +62,8 @@
 		    </div> <!-- rproduct-page-right div end -->
 		    
 		    
-
-
-
-		    
-		    
 		</div> <!-- right side end -->
-	
-<?php include_once('order-dashboard-footer.php'); ?>
+<?php include __DIR__ . '/dashboard-footer.php'; ?>
 
 
 

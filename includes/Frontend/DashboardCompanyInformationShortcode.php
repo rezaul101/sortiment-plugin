@@ -27,12 +27,23 @@ class DashboardCompanyInformationShortcode {
 
     // The callback function that will replace 
     function sortiment_company_information_shortcode( $atts, $content = '') {
-       wp_enqueue_script( 'sortiment-script' );
-       wp_enqueue_style( 'sortiment-style' );
-       
-        ob_start();
-        include __DIR__ . '/views/dashboard-company-information.php';
-        return ob_get_clean();
-        } 
+
+        $user = wp_get_current_user();
+        if ( in_array( 'company', (array) $user->roles ) ) {
+            //The user has the "company" role 
+            wp_enqueue_script( 'sortiment-script-company-profile-update' );
+            wp_enqueue_script( 'sortiment-script' );
+            wp_enqueue_style( 'sortiment-style' );
+            
+                ob_start();
+                include __DIR__ . '/views/dashboard-company-information.php';
+                return ob_get_clean();
+        }else{
+            echo '<div class="wrap">';
+             echo 'You are not Company.';
+             echo '</div>';
+         } 
+
+    } 
 
 }

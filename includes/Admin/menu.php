@@ -33,15 +33,10 @@ class Menu {
        // echo '<h1>Sortiment Deshbord</h1>';
         //wp_enqueue_script( 'sortiment-script-registation' );
         wp_enqueue_style( 'sortiment-style' );
-        echo '<div class="wrap">';
-        require_once SF_SORTIMENT_PLUGIN_DIR . 'includes/Frontend/views/dashboard.php';
-        echo '</div>';
-        } //else{
-           // echo '<div class="wrap">';
-           // echo 'You are not permitted on this page';
-           // echo '</div>';
-        //}
-    //}
+        require_once SF_SORTIMENT_PLUGIN_DIR . 'includes/Admin/views/all-company-list.php';
+        
+       // } 
+    }
 
 
 }

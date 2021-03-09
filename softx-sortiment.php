@@ -84,6 +84,7 @@ final class Softx_Sortiment {
         
         if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
             new Softx\Sortiment\Frontend\Ajax();
+            
         }
 
         //new Softx\Sortiment\Admin\Menu();

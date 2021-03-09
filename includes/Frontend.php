@@ -31,6 +31,8 @@ class Frontend {
         new Frontend\DashboardOrderStatusStep3Shortcode();
         new Frontend\DashboardOrderStatusStep4Shortcode();
         new Frontend\DashboardAskAQuestionShortcode();
+
+        //new Frontend\DashboardCompanyUpdate();
         
         
 

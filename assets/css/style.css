@@ -336,6 +336,9 @@ h4{ font-size: 32px; }
 	margin-left: 20px;
 	border-radius: 100%;
 }
+.company-information-img {
+	border-radius: 100%;
+}
 .accountdiv, .cart-account-div {
 	display: -webkit-box;
 	display: -ms-flexbox;

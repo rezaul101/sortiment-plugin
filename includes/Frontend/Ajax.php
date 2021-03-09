@@ -1,26 +1,33 @@
 <?php
 
 namespace Softx\Sortiment\Frontend;
-
+use Softx\Sortiment\Traits\Form_Error;
 /**
  * Ajax handler class
  */
 class Ajax {
 
+    use Form_Error;
 
-    protected $error_message=[];
+    //protected $error_message=[];
     protected $userdata=[];
     /**
      * Class constructor
      */
     function __construct() {
+
         add_action( 'wp_ajax_softx_sortiment_registation', [ $this, 'submit_registation'] );
         add_action( 'wp_ajax_nopriv_softx_sortiment_registation', [ $this, 'submit_registation'] );
+
+        add_action( 'wp_ajax_update_company_profile', [ $this, 'company_update_form_handler'] );
+        add_action( 'wp_ajax_nopriv_update_company_profile', [ $this, 'company_update_form_handler'] );
 
         
         if (!is_user_logged_in()) {
             add_action( 'wp_ajax_nopriv_softx_sortiment_login', [ $this, 'submit_login'] );
             }
+            
+
 
     }
 
@@ -29,86 +36,77 @@ class Ajax {
      *
      * @return string 
      */
-    private function is_form_field_valied_registation($filed_name) {
-
-        if($filed_name === 'email'){
-           if( isset( $_REQUEST[$filed_name]) && !empty(trim($_REQUEST[$filed_name])) && sanitize_email( $_REQUEST[$filed_name] ) ){
-                return true;
-           }else {
-            $this->error_message[$filed_name] = "Valid Email is required";
-           }
-        }
-
-        if(isset( $_REQUEST[$filed_name]) && !empty(trim($_REQUEST[$filed_name]))){
-
-            return true; 
-        }
-        else {
-            $this->error_message[$filed_name] = $filed_name." is required";
-           }
-        
-    }
 
     public function submit_registation() {
         global $wpdb;
-        if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'new-user' ) ) {
-            wp_send_json_error( [
-                'message' => 'Nonce verification failed!'
-            ] );
-        }
-        //$this->is_form_field_valied_registation('name')
-        if( $this->is_form_field_valied_registation('name')){
-            $userdata['user_login'] =  $_REQUEST['name'];
-        }elseif($this->is_form_field_valied_registation('email')){
-            $userdata['user_email'] =  $_REQUEST['email'];
-
+        
+        if ( empty( $name ) ) {
+            $this->errors['name'] = __( 'Please provide a name', 'softx-sortminet' );
         }
 
-        if(! empty($this->error_message)){
+        if ( empty( $company_email ) ) {
+            $this->errors['company_email'] = __( 'Please provide a company email.', 'softx-sortminet' );
+        }
+        if ( 6 > strlen( $password ) ) {
+           
+            $this->errors['password'] = __( 'Password length must be greater than 6!.', 'softx-sortminet' );
+        }
+        if ( 8 > strlen( $cvr_number ) && 8 < strlen( $cvr_number )) {
+           
+            $this->errors['cvr_number'] = __( 'cvr number length minimun and maximum 8 character.', 'softx-sortminet' );
+        }
+        
+        if ( ! empty( $this->errors ) ) {
 
-        return    wp_send_json_error( $this->error_message, 400);
+       
+        return    wp_send_json_error( ['error_message' => $this->errors ], 400);
         }
         else {
-          //return  wp_send_json_success( ['message' => 'success'], 200 );
-        //}
 
+            $name               = isset ( $_REQUEST['name'] ) ? $_REQUEST['name'] : '';
+            $company_name       = isset( $_REQUEST['company_name'] ) ? $_REQUEST['company_name'] : '';
+            $company_email      = isset( $_REQUEST['company_email'] ) ? $_REQUEST['company_email'] : '';
+            $company_address    = isset( $_REQUEST['company_address'] ) ? $_REQUEST['company_address'] : '';
+            $password           = isset( $_REQUEST['password'] ) ? $_REQUEST['password'] : '';
+            $cvr_number         = isset( $_REQUEST['cvr_number'] ) ? $_REQUEST['cvr_number'] : '';
+                            
+            $companydata = $wpdb->insert("{$wpdb->prefix}company_info", array(
+                'company_id' 	    =>   $company_id,
+                'company_name' 	    =>   $company_name,
+                'company_email' 	=>   $company_email,
+                'company_address'	=>   $company_address,
+                'cvr_number' 	    =>   $cvr_number,
+
+            ));
+            $company_id = $wpdb->insert_id;	
+
+
+            $userdata = array(
+                'user_login'        =>   $name,
+                'user_email'	    =>   $company_email,
+                'user_pass' 	    =>   $password,
+                //'first_name'        =>   $name,
+                //'last_name'         =>   $name,
+                //'nickname'          =>   $name,
+                'role'              =>  'company',
         
-        $name               = isset ( $_REQUEST['name'] ) ? $_REQUEST['name'] : '';
-        $company_name       = isset( $_REQUEST['company_name'] ) ? $_REQUEST['company_name'] : '';
-        $company_email      = isset( $_REQUEST['company_email'] ) ? $_REQUEST['company_email'] : '';
-        $company_address    = isset( $_REQUEST['company_address'] ) ? $_REQUEST['company_address'] : '';
-        $password           = isset( $_REQUEST['password'] ) ? $_REQUEST['password'] : '';
-        $cvr_number         = isset( $_REQUEST['cvr_number'] ) ? $_REQUEST['cvr_number'] : '';
-						
-        $companydata = $wpdb->insert("{$wpdb->prefix}company_info", array(
-            'company_id' 	    =>   $company_id,
-            'company_name' 	    =>   $company_name,
-            'company_email' 	=>   $company_email,
-            'company_address'	=>   $company_address,
-            'cvr_number' 	    =>   $cvr_number,
+            );
+            $user = wp_insert_user( $userdata );
 
-        ));
-         $company_id = $wpdb->insert_id;	
+            add_user_meta($user, 'company_id', $company_id);
 
 
-        $userdata = array(
-            'user_login'        =>   $name,
-            'user_email'	    =>   $company_email,
-            'user_pass' 	    =>   $password,
-            //'first_name'        =>   $name,
-            //'last_name'         =>   $name,
-            //'nickname'          =>   $name,
-            'role'              =>  'company',
-    
-        );
-        $user = wp_insert_user( $userdata );
-
-        add_user_meta($user, 'company_id', $company_id);
-
-
-        wp_send_json_success([
-            'message' => 'Registation has been sent successfully!'
-        ]);
+            if ( ! is_wp_error( $user ) ) {
+                        
+                wp_send_json_success([
+                    'message'   => 'Registation has been successfully!'
+                ]);
+                
+            } else {
+                wp_send_json_error( [
+                    'message' => 'Registation has been failed!'
+                ] );
+            } 
 
         }
 
@@ -126,21 +124,76 @@ class Ajax {
 
             $user_signon = wp_signon($info, false);
 
-            if (is_wp_error($user_signon)) {
-                //wp_set_current_user($user_signon->ID);
-                //wp_set_auth_cookie($user_signon->ID);
-                
+            if (is_wp_error($user_signon)) {   
                 wp_send_json_error( [
                     'message' => 'Login failed!'
                 ] );
             } else {
 
                 wp_send_json_success([
-                    'message' => 'login has been sent successfully!'
+                    'message'   => 'login has been sent successfully!',
+                    'user_signon'      => $user_signon
+
                 ]);
             }   
         
 
+    }
+    /**
+     * company update profile form
+     *
+     * @return void
+     */
+    public function company_update_form_handler() {
+        global $wpdb;
+        if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'company-profile' ) ) {
+            wp_send_json_success([
+                'message' => 'Nonce verification failed!'
+            ]);
+        }
+
+        // if ( ! current_user_can( 'manage_options' ) ) {
+        //     wp_die( 'Are you cheating?' );
+        // }
+
+        $id                 = isset( $_POST['id'] ) ? intval( $_POST['id'] ) : 0;
+
+        $company_name       = isset( $_POST['company_name'] ) ? sanitize_text_field( $_POST['company_name'] ) : '';
+        $zip_code           = isset( $_POST['zip_code'] ) ? sanitize_textarea_field( $_POST['zip_code'] ) : '';
+        $contact_person     = isset( $_POST['contact_person'] ) ? sanitize_text_field( $_POST['contact_person'] ) : '';
+        $phone_number       = isset( $_POST['phone_number'] ) ? sanitize_text_field( $_POST['phone_number'] ) : '';
+        $company_address    = isset( $_POST['company_address'] ) ? sanitize_textarea_field( $_POST['company_address'] ) : '';
+        $company_address_2  = isset( $_POST['company_address_2'] ) ? sanitize_text_field( $_POST['company_address_2'] ) : '';
+
+            
+        $updated = $wpdb->update("{$wpdb->prefix}company_info", array(
+            'company_id' 	    =>   $id ,
+            'company_name' 	    =>   $company_name,
+            'zip_code' 	        =>   $zip_code,
+            'contact_person'	=>   $contact_person,
+            'phone_number' 	    =>   $phone_number,
+            'company_address' 	=>   $company_address,
+            'company_address_2' =>   $company_address_2,
+
+        ), array( 'company_id' => $id  ));
+
+        //return "Hit to the database";
+        if($updated){
+
+            wp_send_json_success([
+                'message' => 'Profile Update has been successfully!'
+            ]);
+
+            
+        }else{
+
+            wp_send_json_error([
+                'message' => "Data has not updated", 400 
+            ]);
+        }
+
+
+       
     }
 
 

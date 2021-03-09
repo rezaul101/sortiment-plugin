@@ -36,6 +36,13 @@ class Assets {
                 'version' => filemtime( SF_SORTIMENT_PATH . '/assets/js/custom.js' ),
                 'deps'    => [ 'jquery' ]
             ],
+
+            'sortiment-script-company-profile-update' => [
+                'src'     => SF_SORTIMENT_ASSETS . '/js/company-profile-update.js',
+                'version' => filemtime( SF_SORTIMENT_PATH . '/assets/js/company-profile-update.js' ),
+                'deps'    => [ 'jquery' ]
+            ],
+
             'sortiment-script-login-registation' => [
                 'src'     => SF_SORTIMENT_ASSETS . '/js/login-registation.js',
                 'version' => filemtime( SF_SORTIMENT_PATH . '/assets/js/login-registation.js' ),
@@ -86,10 +93,20 @@ class Assets {
         wp_localize_script( 'sortiment-script-login-registation', 'Sortiment', [
             'ajaxurl' => admin_url( 'admin-ajax.php' ),
             'error'   => __( 'Something went wrong.', 'softx-sortiment' ),
-            'baseurl' => home_url ( 'sortiment-dashboard' ),
+            'baseurl1' => home_url ( 'sortiment-login' ),
+            'baseurl2' => home_url ( 'sortiment-dashboard' ),
             
             
         ] );
+        
+        wp_localize_script( 'sortiment-script-company-profile-update', 'Sortiment_Update_Profile', [
+            'ajaxurl' => admin_url( 'admin-ajax.php' ),
+            'error'   => __( 'Something went wrong.', 'softx-sortiment' ),
+            'baseurl' => home_url ( 'sortiment-company-information' ),
+            
+        ] );
+
+
 
 
     }

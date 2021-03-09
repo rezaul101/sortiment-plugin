@@ -4,10 +4,7 @@
  *
  * @package sortiment
  */
-//get_header();
 
-//use Softx\Sortiment\Sortiment_Registation;
-//namespace Softx\Sortiment\Frontend\views;
 
 ?>
 <div class="main-div-section">
@@ -34,18 +31,37 @@
 			
 			<form action="" method="post" id="userRegistationFrom">
 				<div class="full-div">
-				<div class="half-div"> <span class="c_icon c-user"></span> <input type="text" id="name" name="name"  placeholder="Name & Last name"> </div>
-				<div class="half-div"> <span class="c_icon c-users"></span> <input type="text" id="company_name" name="company_name" placeholder="Company name"> </div>
+					<div class="half-div"> <span class="c_icon c-user"></span> 
+					<input type="text" id="name" name="name"  placeholder="Name & Last name">
+					<p class="description error"></p>
+
+					</div>
+					<div class="half-div"> <span class="c_icon c-users"></span>
+					<input type="text" id="company_name" name="company_name" placeholder="Company name"> 
+					<p class="description error"></p>
+					</div>
 				</div>				
 				
 				<div class="full-div">
-				<div class="half-div"> <span class="c_icon c-envelope"></span> <input type="email" id="company_email" name="company_email" placeholder="Email"> </div>
-				<div class="half-div"> <span class="c_icon c-map-marker"></span> <input type="text" id="company_address" name="company_address" placeholder="Company address"> </div>
+					<div class="half-div"> <span class="c_icon c-envelope"></span> 
+					<input type="email" id="company_email" name="company_email" placeholder="Email">
+					<p class="description error"></p> 
+					</div>
+					<div class="half-div"> <span class="c_icon c-map-marker"></span> 
+					<input type="text" id="company_address" name="company_address" placeholder="Company address"> 
+					<p class="description error"></p>
+					</div>
 				</div>
 
 				<div class="full-div">
-				<div class="half-div"> <span class="c_icon c-key"></span> <input type="password" id="password" name="password" placeholder="Password"> </div>
-				<div class="half-div"> <span class="c_icon c-building"></span> <input type="text" id="cvr_number" name="cvr_number" placeholder="CVR Number"> </div>
+					<div class="half-div"> <span class="c_icon c-key"></span> 
+					<input type="password" id="password" name="password" placeholder="Password"> 
+					<p class="description error"></p>
+					</div>
+					<div class="half-div"> <span class="c_icon c-building"></span>
+					<input type="text" id="cvr_number" name="cvr_number" placeholder="CVR Number"> 
+					<p class="description error"></p>
+					</div>
 				</div>
 
 				<div class="full-div">
@@ -55,7 +71,7 @@
 				</div>
 			</form>
 			
-
+		
 			<h3 class="blue-subtitle"> <a href="<?php echo home_url('sortiment-login') ?>"> Login here </a> </h3>
 		</div> <!-- left side end -->
 	</div>  <!-- row end -->

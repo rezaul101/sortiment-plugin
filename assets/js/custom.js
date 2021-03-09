@@ -66,8 +66,9 @@ function openTab(evt, customTab) {
   evt.currentTarget.className += " active";
 }
 
-
-
+jQuery(document).ready(function($) {
+  
+  
 //Quantity increase and decrease
 var clicks = 1;
 $('#add_agent').click(function(){
@@ -84,6 +85,10 @@ $('#remove_agent').click(function() {
         $('.count').html(clicks);    
 });
 
+});
+
+
+
 
 //File upload image show
 function readURL(input) {
@@ -95,7 +100,7 @@ function readURL(input) {
     reader.readAsDataURL(input.files[0]); // convert to base64 string
   }
 }
-$(".inputimage").change(function() {
+jQuery(".inputimage").change(function() {
   readURL(this);
 });
 

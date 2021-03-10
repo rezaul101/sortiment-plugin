@@ -35,40 +35,71 @@ class Ajax {
      * Handle Registation Submission
      *
      * @return string 
-     */
+     *
+     **/
 
     public function submit_registation() {
         global $wpdb;
-        
-        if ( empty( $name ) ) {
+
+
+
+        //check_ajax_referer('new-user');
+        if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'new-user' ) ) {
+            wp_send_json_success([
+                'message' => 'Nonce verification failed!'
+            ]);
+        }
+
+        $name               =  $_REQUEST['name'];
+        $company_name       =  $_REQUEST['company_name'];
+        $company_email      = $_REQUEST['company_email'] ;
+        $company_address    =  $_REQUEST['company_address'];
+        $password           =  $_REQUEST['password'];
+        $cvr_number         =  $_REQUEST['cvr_number'];
+
+        if ( empty( $name) ) {
             $this->errors['name'] = __( 'Please provide a name', 'softx-sortminet' );
         }
+        if ( empty( $company_name) ) {
+            $this->errors['company_name'] = __( 'Please provide a company name', 'softx-sortminet' );
+        }
+        if ( empty( $company_address) ) {
+            $this->errors['company_address'] = __( 'Please provide a company address', 'softx-sortminet' );
+        }
+
+        // $email = $wpdb->escape($_REQUEST['company_email']);
+
+        // if (!is_email($email)) {  
+        //     $this->errors['company_email'] = __( 'Please enter a valid email.', 'softx-sortminet' ); 
+        //     }elseif (email_exists($email))  
+        //     {  
+        //         $this->errors['company_email'] = __( 'This email address is already in use.', 'softx-sortminet' );  
+        //     } 
 
         if ( empty( $company_email ) ) {
             $this->errors['company_email'] = __( 'Please provide a company email.', 'softx-sortminet' );
         }
-        if ( 6 > strlen( $password ) ) {
+        if ( strlen( $password ) < 6 ) {
            
-            $this->errors['password'] = __( 'Password length must be greater than 6!.', 'softx-sortminet' );
+            $this->errors['password'] = __( 'Password length minimum be greater than 6!.', 'softx-sortminet' );
         }
-        if ( 8 > strlen( $cvr_number ) && 8 < strlen( $cvr_number )) {
+        if ( strlen( $cvr_number ) != 8 ) {
            
-            $this->errors['cvr_number'] = __( 'cvr number length minimun and maximum 8 character.', 'softx-sortminet' );
+            $this->errors['cvr_number'] = __( 'cvr number length minimun & maximum 8 characters.', 'softx-sortminet' );
         }
-        
-        if ( ! empty( $this->errors ) ) {
 
-       
-        return    wp_send_json_error( ['error_message' => $this->errors ], 400);
+        if ( ! empty( $this->errors ) ) {
+             wp_send_json_error( ['error_message' => $this->errors ]);
         }
+
         else {
 
-            $name               = isset ( $_REQUEST['name'] ) ? $_REQUEST['name'] : '';
-            $company_name       = isset( $_REQUEST['company_name'] ) ? $_REQUEST['company_name'] : '';
-            $company_email      = isset( $_REQUEST['company_email'] ) ? $_REQUEST['company_email'] : '';
-            $company_address    = isset( $_REQUEST['company_address'] ) ? $_REQUEST['company_address'] : '';
-            $password           = isset( $_REQUEST['password'] ) ? $_REQUEST['password'] : '';
-            $cvr_number         = isset( $_REQUEST['cvr_number'] ) ? $_REQUEST['cvr_number'] : '';
+           // $name               = isset ( $_REQUEST['name'] ) ? $_REQUEST['name'] : '';
+            //$company_name       = isset( $_REQUEST['company_name'] ) ? $_REQUEST['company_name'] : '';
+            //$company_email      = isset( $_REQUEST['company_email'] ) ? $_REQUEST['company_email'] : '';
+            //$company_address    = isset( $_REQUEST['company_address'] ) ? $_REQUEST['company_address'] : '';
+            //$password           = isset( $_REQUEST['password'] ) ? $_REQUEST['password'] : '';
+            //$cvr_number         = isset( $_REQUEST['cvr_number'] ) ? $_REQUEST['cvr_number'] : '';
                             
             $companydata = $wpdb->insert("{$wpdb->prefix}company_info", array(
                 'company_id' 	    =>   $company_id,
@@ -94,10 +125,14 @@ class Ajax {
             $user = wp_insert_user( $userdata );
 
             add_user_meta($user, 'company_id', $company_id);
+            $new_user_data = is_wp_error($user );
 
+            // wp_send_json_success([
+            //     'message'   => $new_user_data
+            // ]);
 
-            if ( ! is_wp_error( $user ) ) {
-                        
+            if ( ! is_wp_error( $new_user_data) ) {
+                    
                 wp_send_json_success([
                     'message'   => 'Registation has been successfully!'
                 ]);
@@ -126,7 +161,7 @@ class Ajax {
 
             if (is_wp_error($user_signon)) {   
                 wp_send_json_error( [
-                    'message' => 'Login failed!'
+                    'message' => 'Wrong username or password.'
                 ] );
             } else {
 

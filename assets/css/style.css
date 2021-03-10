@@ -233,6 +233,19 @@ h4{ font-size: 32px; }
 	margin: 0 auto !important;
 	font-size: 30px !important;
 }
+
+.message p.description {
+	text-align: center;
+	font-size: 18px !important;
+	padding-top: 10px;
+	font-style: italic;
+}
+.description.error {
+	color: red;
+}
+.description.success {
+	color: green;
+}
 /*=== Responsive css ===*/
 @media all and (min-width: 981px) and (max-width: 1100px) {
     .white-title, .blue-title {

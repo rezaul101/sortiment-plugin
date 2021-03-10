@@ -73,6 +73,10 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
         					
         				</div>
         			</form>
+						<div class="message">
+						<p class="description success"></p>
+						<p class="description error"></p>
+						</div>
     		        </div>
 
     		        <div class="rightside-image-div">
@@ -219,8 +223,4 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 		</div> <!-- right side end -->
 	
 <?php include __DIR__ . '/dashboard-footer.php'; ?>
-
-
-
-
 

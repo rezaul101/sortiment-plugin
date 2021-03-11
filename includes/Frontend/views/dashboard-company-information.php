@@ -10,8 +10,12 @@ include __DIR__ . '/dashboard-leftside.php';
 global $wpdb;    
 $current_user = wp_get_current_user();
 $userid = $current_user->ID;
-//echo $userid;
+
+
 $loginuser_id = get_current_user_id();
+
+$profile_pic =  get_user_meta( $userid , 'ss_pro_pic', true );
+//var_dump($userid);
 //echo $loginuser_id;
 $get_companyid = get_user_meta($loginuser_id, 'company_id');
 $set_companyid = $get_companyid[0];
@@ -34,9 +38,9 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 					<?php } ?>
 		        <h2 class="company-information-title"> Your company information <span> <?php echo esc_attr( $retrieved_data->company_name ); ?> </span></h2>
 		        <div class="rightside-form-image-div">
-
+				<form id="company-profile-update-form" action="#" method="post">	
     		        <div class="rightside-form-div">
-    		            <form id="company-profile-update-form" action="#" method="post">
+    		           
         				<div class="full-div">
         					<div class="half-div"> <label>Company name</label> 
 								<input type="text" id="company_name" name="company_name" placeholder="Company name here" value="<?php echo esc_attr( $retrieved_data->company_name ); ?>"> 
@@ -68,11 +72,8 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 						<?php wp_nonce_field( 'company-profile' ); ?>
 							<input type="hidden"  name="id" value="<?php echo $retrieved_data->company_id ; ?>">
 							<input type="hidden" name="action" value="update_company_profile">
-            				<input class="btn blue-btn" type="submit" id="submit" name="submit" value="<?php esc_attr_e( 'Save changes', 'softx-sortiment' ); ?>">
-							
-        					
+            				<input class="btn blue-btn" type="submit" id="submit" name="submit" value="<?php esc_attr_e( 'Save changes', 'softx-sortiment' ); ?>">	
         				</div>
-        			</form>
 						<div class="message">
 						<p class="description success"></p>
 						<p class="description error"></p>
@@ -81,22 +82,25 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 
     		        <div class="rightside-image-div">
 
-						<?php 
-						$user_avatar = get_avatar($current_user, 220, '', '', array('class' => 'company-information-img')); 
-						if ( is_user_logged_in() ) {
-							if ( ($current_user instanceof WP_User) ) {
-								echo $user_avatar;
-							}
+						<?php 	
+
+						if ( !empty($profile_pic) ) {
+							$image  = wp_get_attachment_image_src($profile_pic, 220, '', '', array('class' => 'company-information-img'));
+						
 						}else {
 							echo ' <img src=" '. SF_SORTIMENT_ASSETS .'/images/holder.png" class="company-information-img">';
 							
 						}
+						
 
-						?>
-    		            
+					?>
+	                <img class="company-information-img" id="ss-img" src="<?php echo !empty($profile_pic) ? $image[0] : ''; ?>" style="<?php echo  empty($profile_pic) ? 'display:none;' :'' ?>" /> 
+					<input type="button" data-id="ss_image_id" data-src="ss-img" class="button ss-image" name="ss_image" id="ss-image" value="Upload" />
+	                <input type="hidden" class="button" name="ss_image_id" id="ss_image_id" value="<?php echo !empty($profile_pic) ? $profile_pic : ''; ?>" />
+
     		        </div>
     		        
-    		        
+				</form> 
     		    </div>
     		    </div>
 				<?php 

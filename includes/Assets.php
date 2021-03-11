@@ -30,6 +30,7 @@ class Assets {
      * @return array
      */
     public function get_scripts() {
+        wp_enqueue_media();
         return [
             'sortiment-script' => [
                 'src'     => SF_SORTIMENT_ASSETS . '/js/custom.js',

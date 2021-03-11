@@ -8,6 +8,15 @@ namespace Softx\Sortiment;
 class Installer {
 
     /**
+     * Class constructor
+     */
+    function __construct() {
+        //add_action('admin_init', 'create_vendor_role');
+
+    }
+
+
+    /**
      * Run the installer
      *
      * @return void
@@ -44,12 +53,12 @@ class Installer {
                 'read'         => true,  // true allows this capability
                 'edit_posts'   => false,
                 'delete_posts' => false,
-                'manage_options' => true,
+                'upload_files' => true,
                 
             )
+
         );
-       // $role= get_role('sortiment_vendor');
-        //$role->add_cap('sortiment_capability');
+         //$company->add_cap('upload_files');
 
     }
     /**

@@ -1141,9 +1141,20 @@ ul.das_left_social {
 	align-items: center;
 	margin-top: 20px;
 }
+.rightside-form-image-div #company-profile-update-form{
+	width:100%;
+}
 .rightside-form-div {
 	width: 70%;
 	margin-right: 2%;
+	float: left;
+}
+.rightside-image-div {
+	width: 28%;
+	float: right;
+	display: flex;
+	align-items: center;
+	height: 480px;
 }
 .rightside-form-div .half-div input {
 	text-indent: 0px;
@@ -1206,6 +1217,15 @@ ul.das_left_social {
     .format-div {
     	width: 100%;
     }
+	.rightside-image-div {
+		display: flex;
+		align-items: center;
+		height: auto;
+		float: none;
+		width: 100%;
+		text-align: center;
+		vertical-align: middle;
+	}
     #imgInp {
     	width: auto;
     }

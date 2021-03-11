@@ -22,10 +22,17 @@ class Ajax {
         add_action( 'wp_ajax_update_company_profile', [ $this, 'company_update_form_handler'] );
         add_action( 'wp_ajax_nopriv_update_company_profile', [ $this, 'company_update_form_handler'] );
 
-        
+        add_action('profile_update', 'company_update_form_handler');
+	    add_action('user_register', 'company_update_form_handler');
+        add_action( 'show_user_profile', 'company_update_form_handler' );
+	    add_action( 'edit_user_profile', 'company_update_form_handler' );
+	    add_action( 'user_new_form', 'company_update_form_handler' );
+
+
         if (!is_user_logged_in()) {
             add_action( 'wp_ajax_nopriv_softx_sortiment_login', [ $this, 'submit_login'] );
             }
+
             
 
 
@@ -181,6 +188,10 @@ class Ajax {
      */
     public function company_update_form_handler() {
         global $wpdb;
+
+        $current_user = wp_get_current_user();
+        $userid = $current_user->ID;
+
         if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'company-profile' ) ) {
             wp_send_json_success([
                 'message' => 'Nonce verification failed!'
@@ -200,7 +211,9 @@ class Ajax {
         $company_address    = isset( $_POST['company_address'] ) ? sanitize_textarea_field( $_POST['company_address'] ) : '';
         $company_address_2  = isset( $_POST['company_address_2'] ) ? sanitize_text_field( $_POST['company_address_2'] ) : '';
 
-            
+        $profile_pic  = isset( $_POST['ss_image_id'] ) ? sanitize_text_field( $_POST['ss_image_id'] ) : '';
+    
+    
         $updated = $wpdb->update("{$wpdb->prefix}company_info", array(
             'company_id' 	    =>   $id ,
             'company_name' 	    =>   $company_name,
@@ -212,6 +225,9 @@ class Ajax {
 
         ), array( 'company_id' => $id  ));
 
+        if(!empty($profile_pic)){
+        update_user_meta( $userid, 'ss_pro_pic', $profile_pic );
+        }
         //return "Hit to the database";
         if($updated){
 
@@ -230,7 +246,6 @@ class Ajax {
 
        
     }
-
 
 
 

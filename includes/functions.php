@@ -1,5 +1,14 @@
 <?php
 
+
+//Allow Company to Upload Media
+// add_action('admin_init', 'allow_company_uploads');
+
+// function allow_company_uploads() {
+//      $company = get_role('company');
+//      $company->add_cap('upload_files');
+// }
+
 /**
  * redirect logout page
  *
@@ -94,4 +103,6 @@ function sortiment_companies_count() {
 
     return (int) $wpdb->get_var( "SELECT count(company_id) FROM {$wpdb->prefix}company_info" );
 }
+
+
 

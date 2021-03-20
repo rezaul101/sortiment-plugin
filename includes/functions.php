@@ -2,12 +2,12 @@
 
 
 //Allow Company to Upload Media
-// add_action('admin_init', 'allow_company_uploads');
+add_action('admin_init', 'allow_company_uploads');
 
-// function allow_company_uploads() {
-//      $company = get_role('company');
-//      $company->add_cap('upload_files');
-// }
+function allow_company_uploads() {
+     $company = get_role('company');
+     $company->add_cap('upload_files');
+}
 
 /**
  * redirect logout page
@@ -20,14 +20,25 @@ function auto_redirect_after_logout()
     wp_redirect(home_url('sortiment-registation'));
     exit();
 }
-add_filter( 'woocommerce_login_redirect', 'ss_woocommerce_redirect_after_login', 9999, 2 );
+// add_filter( 'woocommerce_login_redirect', 'ss_woocommerce_redirect_after_login', 9999, 2 );
  
-function ss_woocommerce_redirect_after_login( $redirect, $user ) {
+// function ss_woocommerce_redirect_after_login( $redirect, $user ) {
   
-	//$redirect = get_home_url(); // homepage
-	$redirect = '/sortiment-dashboard';   
-	return $redirect;
-	 exit();
+// 	//$redirect = get_home_url(); // homepage
+// 	$redirect = '/sortiment-dashboard';   
+// 	return $redirect;
+// 	 exit();
+// }
+
+add_action('template_redirect','custom_shop_page_redirect');
+function custom_shop_page_redirect(){
+    if (class_exists('WooCommerce')){
+        if(is_product()){
+            wp_redirect(home_url('/sortiment-order-products-single/'));
+            exit();
+        }
+    } 
+    return;
 }
 
 

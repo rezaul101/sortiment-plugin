@@ -32,8 +32,9 @@ class DashboardCompanyInformationShortcode {
         if ( in_array( 'company', (array) $user->roles ) ) {
             //The user has the "company" role 
             wp_enqueue_script( 'sortiment-script-company-profile-update' );
-            wp_enqueue_script( 'sortiment-script' );
+           // wp_enqueue_script( 'sortiment-script' );
             wp_enqueue_style( 'sortiment-style' );
+            wp_enqueue_media();
             
                 ob_start();
                 include __DIR__ . '/views/dashboard-company-information.php';

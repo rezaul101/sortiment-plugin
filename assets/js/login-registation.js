@@ -62,6 +62,7 @@
                
             } else {
                 $('p.description.error').html(response.data.message); 
+                window.location.reload();
                 console.log(response.data.message);
             }
         })

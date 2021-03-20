@@ -91,6 +91,7 @@ final class Softx_Sortiment {
         if ( is_admin() ) {
             new Softx\Sortiment\Admin();
         } else {
+            
              new Softx\Sortiment\Frontend();
             
             

@@ -12,6 +12,8 @@ class Assets {
     function __construct() {
         add_action( 'wp_enqueue_scripts', [ $this, 'register_assets' ] );
         add_action( 'admin_enqueue_scripts', [ $this, 'register_assets' ] );
+    
+     
 
         //add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_asstes' ] );
         //add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_asstes' ] );
@@ -24,13 +26,15 @@ class Assets {
             wp_enqueue_style( 'sortiment-style', SF_SORTIMENT_ASSETS . '/css/style.css', false, fileatime(SF_SORTIMENT_PATH . '/assets/css/style.css'));
         }
     */
+
+    
     /**
      * All available scripts
      *
      * @return array
      */
     public function get_scripts() {
-        wp_enqueue_media();
+       // wp_enqueue_media();
         return [
             'sortiment-script' => [
                 'src'     => SF_SORTIMENT_ASSETS . '/js/custom.js',
@@ -69,6 +73,8 @@ class Assets {
             ]
         ];
     }
+ 
+     
 
     /**
      * Register scripts and styles

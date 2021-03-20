@@ -7,14 +7,6 @@ namespace Softx\Sortiment;
  */
 class Installer {
 
-    /**
-     * Class constructor
-     */
-    function __construct() {
-        //add_action('admin_init', 'create_vendor_role');
-
-    }
-
 
     /**
      * Run the installer
@@ -23,7 +15,7 @@ class Installer {
      */
     public function run() {
         $this->add_version();
-        $this->create_vendor_role();
+        $this->create_company_role();
         $this->create_tables();
         $this->create_pages();
 
@@ -45,7 +37,7 @@ class Installer {
     /**
      * Create new role
      */
-    public function create_vendor_role() {
+    public function create_company_role() {
         add_role(
             'company',
             __( 'Company' ),
@@ -100,6 +92,7 @@ class Installer {
             `zip_code` varchar(255) DEFAULT NULL,
             `company_address` varchar(255) DEFAULT NULL,
             `company_address_2` varchar(255) DEFAULT NULL,
+            `bookingkeepere_email` varchar(255) DEFAULT NULL,
             PRIMARY KEY (`company_id`),
             UNIQUE (company_email)
            ) $charset_collate";
@@ -134,12 +127,13 @@ class Installer {
             `order_summery_id` int(11) NOT NULL AUTO_INCREMENT,
             `company_id` varchar(255) NOT NULL,
             `product_id` varchar(255) NOT NULL,
+            `product_name` varchar(255) NOT NULL,
             `total_quantity` varchar(255) NOT NULL,
             `price` varchar(255) NOT NULL,
             `status` varchar(255) DEFAULT NULL,
-            `deny_message` varchar(255) NOT NULL,
-            `payment_status` varchar(255) NOT NULL,
-            `woocommerce_order_id` varchar(255) NOT NULL,
+            `deny_message` varchar(255) DEFAULT NULL,
+            `payment_status` varchar(255) DEFAULT NULL,
+            `woocommerce_order_id` varchar(255) DEFAULT NULL,
             PRIMARY KEY (`order_summery_id`)
            ) $charset_collate";
 

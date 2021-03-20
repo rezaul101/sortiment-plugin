@@ -23,10 +23,36 @@ class Ajax {
         add_action( 'wp_ajax_nopriv_update_company_profile', [ $this, 'company_update_form_handler'] );
 
         add_action('profile_update', 'company_update_form_handler');
-	    add_action('user_register', 'company_update_form_handler');
-        add_action( 'show_user_profile', 'company_update_form_handler' );
-	    add_action( 'edit_user_profile', 'company_update_form_handler' );
-	    add_action( 'user_new_form', 'company_update_form_handler' );
+	    //add_action('user_register', 'company_update_form_handler');
+
+
+        // color logo 
+        add_action( 'wp_ajax_profile_color_logo', [ $this, 'file_upload_callback'] );
+        add_action( 'wp_ajax_nopriv_profile_color_logo', [ $this, 'file_upload_callback'] );
+
+        add_action('profile_update', 'file_upload_callback');
+        //add_action('user_register', 'file_upload_callback');
+
+        // white logo 
+        add_action( 'wp_ajax_profile_white_logo', [ $this, 'file_upload_callback_white_logo'] );
+        add_action( 'wp_ajax_nopriv_profile_white_logo', [ $this, 'file_upload_callback_white_logo'] );
+
+        add_action('profile_update', 'file_upload_callback_white_logo');
+        //add_action('user_register', 'file_upload_callback_white_logo');
+
+        // black logo 
+        add_action( 'wp_ajax_profile_black_logo', [ $this, 'file_upload_callback_black_logo'] );
+        add_action( 'wp_ajax_nopriv_profile_black_logo', [ $this, 'file_upload_callback_black_logo'] );
+
+        add_action('profile_update', 'file_upload_callback_black_logo');
+        //add_action('user_register', 'file_upload_callback_black_logo');
+
+        // alt logo 
+        add_action( 'wp_ajax_profile_alt_logo', [ $this, 'file_upload_callback_alt_logo'] );
+        //add_action( 'wp_ajax_nopriv_profile_alt_logo', [ $this, 'file_upload_callback_alt_logo'] );
+
+        add_action('profile_update', 'file_upload_callback_alt_logo');
+       // add_action('user_register', 'file_upload_callback_alt_logo');
 
 
         if (!is_user_logged_in()) {
@@ -59,7 +85,7 @@ class Ajax {
 
         $name               =  $_REQUEST['name'];
         $company_name       =  $_REQUEST['company_name'];
-        $company_email      = $_REQUEST['company_email'] ;
+        $company_email      =  $_REQUEST['company_email'] ;
         $company_address    =  $_REQUEST['company_address'];
         $password           =  $_REQUEST['password'];
         $cvr_number         =  $_REQUEST['cvr_number'];
@@ -74,18 +100,18 @@ class Ajax {
             $this->errors['company_address'] = __( 'Please provide a company address', 'softx-sortminet' );
         }
 
-        // $email = $wpdb->escape($_REQUEST['company_email']);
+        $email = $wpdb->escape($_REQUEST['company_email']);
 
-        // if (!is_email($email)) {  
-        //     $this->errors['company_email'] = __( 'Please enter a valid email.', 'softx-sortminet' ); 
-        //     }elseif (email_exists($email))  
-        //     {  
-        //         $this->errors['company_email'] = __( 'This email address is already in use.', 'softx-sortminet' );  
-        //     } 
+        if (!is_email($email)) {  
+            $this->errors['company_email'] = __( 'Please enter a valid email.', 'softx-sortminet' ); 
+            }elseif (email_exists($email))  
+            {  
+                $this->errors['company_email'] = __( 'This email address is already in use.', 'softx-sortminet' );  
+            } 
 
-        if ( empty( $company_email ) ) {
-            $this->errors['company_email'] = __( 'Please provide a company email.', 'softx-sortminet' );
-        }
+        // if ( empty( $company_email ) ) {
+        //     $this->errors['company_email'] = __( 'Please provide a company email.', 'softx-sortminet' );
+        // }
         if ( strlen( $password ) < 6 ) {
            
             $this->errors['password'] = __( 'Password length minimum be greater than 6!.', 'softx-sortminet' );
@@ -133,6 +159,21 @@ class Ajax {
 
             add_user_meta($user, 'company_id', $company_id);
             $new_user_data = is_wp_error($user );
+
+            /*
+            $to      = get_option('admin_email');
+            $subject = 'Company Registation Submission!';
+            $message = sprintf(
+                        'User Name:'. $name or $company_email,
+                        'Password :'. $password,
+                        'Company Name :'. $company_name,
+                        'Company Email:'. $company_email,
+                        'Company Address :'. $company_address,
+                        'Company CVR Number :'. $cvr_number
+                        );
+
+            $result = wp_mail( $to, $subject, $message );*/
+
 
             // wp_send_json_success([
             //     'message'   => $new_user_data
@@ -187,65 +228,344 @@ class Ajax {
      * @return void
      */
     public function company_update_form_handler() {
-        global $wpdb;
+            global $wpdb;
 
+            $current_user = wp_get_current_user();
+            $userid = $current_user->ID;
+
+            if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'company-profile' ) ) {
+                wp_send_json_success([
+                    'message' => 'Nonce verification failed!'
+                ]);
+            }
+
+                
+            // $company_name       =  $_REQUEST['company_name'];
+            // $zip_code           =  $_REQUEST['zip_code'] ;
+            // $contact_person     =  $_REQUEST['contact_person'];
+            // $phone_number       =  $_REQUEST['phone_number'];
+            // $company_address    =  $_REQUEST['company_address'];
+            // $company_address_2  =  $_REQUEST['company_address_2'];
+
+            $id                 = isset( $_POST['id'] ) ? intval( $_POST['id'] ) : 0;
+
+            $company_name           = isset( $_POST['company_name'] ) ? sanitize_text_field( $_POST['company_name'] ) : '';
+            $zip_code               = isset( $_POST['zip_code'] ) ? sanitize_textarea_field( $_POST['zip_code'] ) : '';
+            $contact_person         = isset( $_POST['contact_person'] ) ? sanitize_text_field( $_POST['contact_person'] ) : '';
+            $phone_number           = isset( $_POST['phone_number'] ) ? sanitize_text_field( $_POST['phone_number'] ) : '';
+            $company_address        = isset( $_POST['company_address'] ) ? sanitize_textarea_field( $_POST['company_address'] ) : '';
+            $company_address_2      = isset( $_POST['company_address_2'] ) ? sanitize_text_field( $_POST['company_address_2'] ) : '';
+            $cvr_number             = isset( $_REQUEST['cvr_number'] ) ? $_REQUEST['cvr_number'] : '';
+            $bookingkeepere_email   = isset( $_REQUEST['bookingkeepere_email'] ) ? $_REQUEST['bookingkeepere_email'] : '';
+            $profile_pic            = isset( $_POST['ss_image_id'] ) ? sanitize_text_field( $_POST['ss_image_id'] ) : '';
+
+
+
+            $updated = $wpdb->update("{$wpdb->prefix}company_info", array(
+                'company_id' 	        =>   $id ,
+                'company_name' 	        =>   $company_name,
+                'zip_code' 	            =>   $zip_code,
+                'contact_person'	    =>   $contact_person,
+                'phone_number' 	        =>   $phone_number,
+                'company_address' 	    =>   $company_address,
+                'company_address_2'     =>   $company_address_2,
+                'cvr_number'            =>   $cvr_number,
+                'bookingkeepere_email'  =>   $bookingkeepere_email,
+
+            ), array( 'company_id' => $id  ));
+
+            if(!empty($profile_pic)){
+            update_user_meta( $userid, 'ss_pro_pic', $profile_pic );
+            }
+
+            if ( false === $updated ) {
+                wp_send_json_error([
+                    'message' => 'Data has not updated'
+                ]);
+            } else {
+                wp_send_json_success([
+                    'message' => 'Profile Update has been successfully!'
+                ]);
+            }   
+    
+    }
+    /**
+     * company color logo
+     *
+     * @return void
+     **/
+
+    function file_upload_callback() {
+        global $wpdb;
         $current_user = wp_get_current_user();
         $userid = $current_user->ID;
 
-        if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'company-profile' ) ) {
+        $loginuser_id = get_current_user_id();
+        $get_companyid = get_user_meta($loginuser_id, 'company_id');
+        $set_companyid = $get_companyid[0];
+
+        if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'company-profile-color-logo' ) ) {
+            wp_send_json_success([
+                'message' => 'Nonce verification failed!'
+            ]);
+        }
+        /**
+         * 
+         * metakey : 01. color_logos_id
+         * 02. white_logos_id
+         * 03. black_logos_id
+         * 04. alt_logos_id
+         * value will be like this : 202,203,204,205(string format)
+         * first get value.
+         * 
+         * 
+         */
+        $colorlogo_jpg_id   = $_POST['colorlogo_jpg_id'];
+        $colorlogo_png_id   = $_POST['colorlogo_png_id'];
+        $colorlogo_ai_id    = $_POST['colorlogo_ai_id'];
+        $colorlogo_svg_id   = $_POST['colorlogo_svg_id'];
+        $colorlogo_pdf_id   = $_POST['colorlogo_pdf_id'];
+
+        // $attachment = $wpdb->insert("{$wpdb->prefix}company_attachment", array(
+        //     'company_id' 	    =>   $set_companyid,
+        //     'extra_logo' 	    =>   $color_img,
+
+        // ));
+
+        if(!empty($colorlogo_jpg_id)){
+                update_user_meta( $userid, 'colorlogo_jpg', $colorlogo_jpg_id );
+                wp_send_json_success([
+                    'message'   => 'Logo has been successfully Save!'
+                ]);
+
+            }
+        if(!empty($colorlogo_png_id)){ 
+            update_user_meta( $userid, 'colorlogo_png', $colorlogo_png_id );
+            wp_send_json_success([
+                'message'   => 'Logo has been successfully Save!'
+            ]);
+
+        }
+        if(!empty($colorlogo_ai_id) ){
+            update_user_meta( $userid, 'colorlogo_ai', $colorlogo_ai_id );
+            wp_send_json_success([
+                'message'   => 'Logo has been successfully Save!'
+            ]);
+
+        }
+        if(!empty($colorlogo_svg_id) ){
+            update_user_meta( $userid, 'colorlogo_svg', $colorlogo_svg_id );
+            wp_send_json_success([
+                'message'   => 'Logo has been successfully Save!'
+            ]);
+        }
+        if(!empty($colorlogo_pdf_id)){
+            update_user_meta( $userid, 'colorlogo_pdf', $colorlogo_pdf_id );
+            wp_send_json_success([
+            'message'   => 'Logo has been successfully Save!'
+        ]);
+
+        }
+        
+
+     }
+
+    /**
+     * company white logo
+     *
+     * @return void
+     **/
+
+    function file_upload_callback_white_logo() {
+        global $wpdb;
+        $current_user = wp_get_current_user();
+        $userid = $current_user->ID;
+
+        $loginuser_id = get_current_user_id();
+        $get_companyid = get_user_meta($loginuser_id, 'company_id');
+        $set_companyid = $get_companyid[0];
+
+        if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'company-profile-white-logo' ) ) {
             wp_send_json_success([
                 'message' => 'Nonce verification failed!'
             ]);
         }
 
-        // if ( ! current_user_can( 'manage_options' ) ) {
-        //     wp_die( 'Are you cheating?' );
-        // }
+        $whitelogo_jpg_id   = $_POST['whitelogo_jpg_id'];
+        $whitelogo_png_id   = $_POST['whitelogo_png_id'];
+        $whitelogo_ai_id    = $_POST['whitelogo_ai_id'];
+        $whitelogo_svg_id   = $_POST['whitelogo_svg_id'];
+        $whitelogo_pdf_id   = $_POST['whitelogo_pdf_id'];
 
-        $id                 = isset( $_POST['id'] ) ? intval( $_POST['id'] ) : 0;
+        if(!empty($whitelogo_jpg_id)){
+                update_user_meta( $userid, 'whitelogo_jpg', $whitelogo_jpg_id );
+                wp_send_json_success([
+                    'message'   => 'Logo has been successfully Save!'
+                ]);
 
-        $company_name       = isset( $_POST['company_name'] ) ? sanitize_text_field( $_POST['company_name'] ) : '';
-        $zip_code           = isset( $_POST['zip_code'] ) ? sanitize_textarea_field( $_POST['zip_code'] ) : '';
-        $contact_person     = isset( $_POST['contact_person'] ) ? sanitize_text_field( $_POST['contact_person'] ) : '';
-        $phone_number       = isset( $_POST['phone_number'] ) ? sanitize_text_field( $_POST['phone_number'] ) : '';
-        $company_address    = isset( $_POST['company_address'] ) ? sanitize_textarea_field( $_POST['company_address'] ) : '';
-        $company_address_2  = isset( $_POST['company_address_2'] ) ? sanitize_text_field( $_POST['company_address_2'] ) : '';
-
-        $profile_pic  = isset( $_POST['ss_image_id'] ) ? sanitize_text_field( $_POST['ss_image_id'] ) : '';
-    
-    
-        $updated = $wpdb->update("{$wpdb->prefix}company_info", array(
-            'company_id' 	    =>   $id ,
-            'company_name' 	    =>   $company_name,
-            'zip_code' 	        =>   $zip_code,
-            'contact_person'	=>   $contact_person,
-            'phone_number' 	    =>   $phone_number,
-            'company_address' 	=>   $company_address,
-            'company_address_2' =>   $company_address_2,
-
-        ), array( 'company_id' => $id  ));
-
-        if(!empty($profile_pic)){
-        update_user_meta( $userid, 'ss_pro_pic', $profile_pic );
-        }
-        //return "Hit to the database";
-        if($updated){
-
+            }
+        if(!empty($whitelogo_png_id)){ 
+            update_user_meta( $userid, 'whitelogo_png', $whitelogo_png_id );
             wp_send_json_success([
-                'message' => 'Profile Update has been successfully!'
+                'message'   => 'Logo has been successfully Save!'
             ]);
 
-            
-        }else{
+        }
+        if(!empty($whitelogo_ai_id) ){
+            update_user_meta( $userid, 'whitelogo_ai', $whitelogo_ai_id );
+            wp_send_json_success([
+                'message'   => 'Logo has been successfully Save!'
+            ]);
 
-            wp_send_json_error([
-                'message' => "Data has not updated", 400 
+        }
+        if(!empty($whitelogo_svg_id) ){
+            update_user_meta( $userid, 'whitelogo_svg', $whitelogo_svg_id );
+            wp_send_json_success([
+                'message'   => 'Logo has been successfully Save!'
+            ]);
+        }
+        if(!empty($whitelogo_pdf_id)){
+            update_user_meta( $userid, 'whitelogo_pdf', $whitelogo_pdf_id );
+            wp_send_json_success([
+            'message'   => 'Logo has been successfully Save!'
+        ]);
+
+        }
+        
+
+     }
+
+     /**
+     * company white logo
+     *
+     * @return void
+     **/
+
+    function file_upload_callback_black_logo() {
+        global $wpdb;
+        $current_user = wp_get_current_user();
+        $userid = $current_user->ID;
+
+        $loginuser_id = get_current_user_id();
+        $get_companyid = get_user_meta($loginuser_id, 'company_id');
+        $set_companyid = $get_companyid[0];
+
+        if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'company-profile-black-logo' ) ) {
+            wp_send_json_success([
+                'message' => 'Nonce verification failed!'
             ]);
         }
 
+        $blacklogo_jpg_id   = $_POST['blacklogo_jpg_id'];
+        $blacklogo_png_id   = $_POST['blacklogo_png_id'];
+        $blacklogo_ai_id    = $_POST['blacklogo_ai_id'];
+        $blacklogo_svg_id   = $_POST['blacklogo_svg_id'];
+        $blacklogo_pdf_id   = $_POST['blacklogo_pdf_id'];
 
-       
-    }
+        if(!empty($blacklogo_jpg_id)){
+                update_user_meta( $userid, 'blacklogo_jpg', $blacklogo_jpg_id );
+                wp_send_json_success([
+                    'message'   => 'Logo has been successfully Save!'
+                ]);
+
+            }
+        if(!empty($blacklogo_png_id)){ 
+            update_user_meta( $userid, 'blacklogo_png', $blacklogo_png_id );
+            wp_send_json_success([
+                'message'   => 'Logo has been successfully Save!'
+            ]);
+
+        }
+        if(!empty($blacklogo_ai_id) ){
+            update_user_meta( $userid, 'blacklogo_ai', $blacklogo_ai_id );
+            wp_send_json_success([
+                'message'   => 'Logo has been successfully Save!'
+            ]);
+
+        }
+        if(!empty($blacklogo_svg_id) ){
+            update_user_meta( $userid, 'blacklogo_svg', $blacklogo_svg_id );
+            wp_send_json_success([
+                'message'   => 'Logo has been successfully Save!'
+            ]);
+        }
+        if(!empty($blacklogo_pdf_id)){
+            update_user_meta( $userid, 'blacklogo_pdf', $blacklogo_pdf_id );
+            wp_send_json_success([
+            'message'   => 'Logo has been successfully Save!'
+        ]);
+
+        }
+        
+
+     }
+
+
+     /**
+     * company alt logo
+     *
+     * @return void
+     **/
+
+    function file_upload_callback_alt_logo() {
+        global $wpdb;
+        $current_user = wp_get_current_user();
+        $userid = $current_user->ID;
+
+        // $loginuser_id = get_current_user_id();
+        // $get_companyid = get_user_meta($loginuser_id, 'company_id');
+        // $set_companyid = $get_companyid[0];
+
+        if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'company-profile-alt-logo' ) ) {
+            wp_send_json_success([
+                'message' => 'Nonce verification failed!'
+            ]);
+        }
+
+        $altlogo_jpg_id   = $_POST['altlogo_jpg_id'];
+        $altlogo_png_id   = $_POST['altlogo_png_id'];
+        $altlogo_ai_id    = $_POST['altlogo_ai_id'];
+        $altlogo_svg_id   = $_POST['altlogo_svg_id'];
+        $altlogo_pdf_id   = $_POST['altlogo_pdf_id'];
+
+        if(!empty($altlogo_jpg_id)){
+                update_user_meta( $userid, 'altlogo_jpg', $altlogo_jpg_id );
+                wp_send_json_success([
+                    'message'   => 'Logo has been successfully Save!'
+                ]);
+
+            }
+        if(!empty(altlogo_png_id)){ 
+            update_user_meta( $userid, 'altlogo_png', $altlogo_png_id );
+            wp_send_json_success([
+                'message'   => 'Logo has been successfully Save!'
+            ]);
+
+        }
+        if(!empty($altlogo_ai_id) ){
+            update_user_meta( $userid, 'altlogo_ai', $altlogo_ai_id );
+            wp_send_json_success([
+                'message'   => 'Logo has been successfully Save!'
+            ]);
+
+        }
+        if(!empty($altlogo_svg_id) ){
+            update_user_meta( $userid, 'altlogo_svg', $altlogo_svg_id );
+            wp_send_json_success([
+                'message'   => 'Logo has been successfully Save!'
+            ]);
+        }
+        if(!empty($altlogo_pdf_id)){
+            update_user_meta( $userid, 'altlogo_pdf', $altlogo_pdf_id );
+            wp_send_json_success([
+            'message'   => 'Logo has been successfully Save!'
+        ]);
+
+        }
+        
+
+     }
+
 
 
 

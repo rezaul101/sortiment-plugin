@@ -6,7 +6,19 @@
  */ 
 include __DIR__ . '/dashboard-header.php';
 include __DIR__ . '/dashboard-leftside.php';
+//global $post;
+global $product;
+$productid = $_GET["postid"];
+//echo $productid;
 
+//$retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}posts WHERE  ID = $productid" );
+//var_dump($retrieve_data);
+
+$product = wc_get_product( $productid );
+
+//$post = get_post( $productId );
+
+//var_dump($product);
 
 ?>	
 		<div class="dashboard-right-side">
@@ -18,43 +30,63 @@ include __DIR__ . '/dashboard-leftside.php';
 		        <div class="product-image-text-div">
 		            <div class="product-image-div">
 		                <div class="product-image-main">
-		                    <img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/product-one.jpg" calss="productimg">
+		                    <!--<img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/product-one.jpg" calss="productimg">-->
+							<?php 
+							 
+							echo $product->get_image();
+							
+							?>
 		                </div>
 		                <div class="product-image-thumbnail">
-		                    <img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/product-thumbnail-one.jpg" calss="productthumb">
+		                    <!--<img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/product-thumbnail-one.jpg" calss="productthumb">-->
 		                    
 		                </div>
 		            </div>
 		            <div class="gapdiv"></div>
 		            <div class="product-text-div">
 		                <div class="product-text-title">
-		                    <h2>Name of product</h2>
+		                    <h2><?php echo $product->get_title(); ?></h2>
 		                </div>
 		                <div class="product-text-price">
-		                    Price: 500 DKK
+		                    <?php echo $product->get_price_html();  ?>
 		                </div>
-		                
-		                <div class="product-text-table">
-		                    <table>
-		                        <thead>
-		                            <tr><th>Quantity</th><th>Price pr. item</th></tr>
-		                        </thead>
-		                        <tbody>
-		                            <tr><td>0</td><td>500 DKK</td></tr>
-		                            <tr><td>10</td><td>450 DKK</td></tr>
-		                            <tr><td>25</td><td>430 DKK</td></tr>
-		                            <tr><td>50</td><td>420 DKK</td></tr>
-		                            <tr><td>100+</td><td>400 DKK</td></tr>
-		                        </tbody>
-		                    </table>
-		                </div>
+		                <div  class="product-text-shortdescrition">
+						<?php echo  $product->get_short_description();  ?>
+						</div>
+						<?php			
+						if(!empty($product->get_meta('minimum_qty'))){
+							$custom_minimum_qunatity_price = explode(", ",$product->get_meta('minimum_qty'));	
+							$_customquantity_price = explode(", ",$product->get_meta('custom_quantity_price'));
+						}	
+
+						if (!empty($custom_minimum_qunatity_price)) {  
+							echo '<table class="custom_product_price_table">
+								<thead>
+								<tr><th>Quantity</th><th>Price pr. item</th></tr>
+								</thead>
+								<tbody>';
+								for ($i=0; $i < count($custom_minimum_qunatity_price); $i++) {
+									echo '<tr>
+										<td>'. $custom_minimum_qunatity_price[$i].'</td>
+										<td>'.$_customquantity_price[$i].'</td>
+										</tr>';
+									}
+							echo '</tbody>
+								</table>';
+						}?>
+
 		                <div class="product-text-color">
-		                    <strong> Color variety: </strong>
-		                    <div class="color-div grey"></div>
-		                    <div class="color-div yellow"></div>
-		                    <div class="color-div red"></div>
-		                    <div class="color-div blue"></div>
-		                    <div class="color-div green"></div>
+						<?php 
+
+						 if ($product->is_type('variable')) {
+							foreach ($product->get_children() as $variation_product_id) {
+								$products[] = wc_get_product($variation_product_id);
+							}
+						} else {
+							$products[] = $product;
+						}
+
+						?>
 		                </div>
 		                <div class="product-text-button">
 		                    <p><a class="btn light-btn approved approve" href="#"> Approve </a> &nbsp; <a class="btn red-btn denied deny" href="#"> Deny </a></p>

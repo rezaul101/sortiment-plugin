@@ -522,50 +522,52 @@ class Ajax {
             ]);
         }
 
-        $altlogo_jpg_id   = $_POST['altlogo_jpg_id'];
-        $altlogo_png_id   = $_POST['altlogo_png_id'];
-        $altlogo_ai_id    = $_POST['altlogo_ai_id'];
-        $altlogo_svg_id   = $_POST['altlogo_svg_id'];
-        $altlogo_pdf_id   = $_POST['altlogo_pdf_id'];
+        $altlogo_jpg_id   =   $_POST['altlogo_jpg_id'] ;
+        $altlogo_png_id   =   $_POST['altlogo_png_id'] ;
+        $altlogo_ai_id    =   $_POST['altlogo_ai_id'] ;
+        $altlogo_svg_id   =   $_POST['altlogo_svg_id'] ;
+        $altlogo_pdf_id   =   $_POST['altlogo_pdf_id'] ;
+
 
         if(!empty($altlogo_jpg_id)){
-                update_user_meta( $userid, 'altlogo_jpg', $altlogo_jpg_id );
+                 update_user_meta( $userid, 'alt_logo_jpg', $altlogo_jpg_id );
                 wp_send_json_success([
-                    'message'   => 'Logo has been successfully Save!'
+                    'message'   => 'Logo has been successfully Save!',
                 ]);
 
             }
-        if(!empty(altlogo_png_id)){ 
-            update_user_meta( $userid, 'altlogo_png', $altlogo_png_id );
-            wp_send_json_success([
-                'message'   => 'Logo has been successfully Save!'
-            ]);
+        if(!empty($altlogo_png_id)){
+            update_user_meta( $userid, 'alt_logo_png', $altlogo_png_id );
+           wp_send_json_success([
+               'message'   => 'Logo has been successfully Save!',
+           ]);
 
-        }
+       }
         if(!empty($altlogo_ai_id) ){
-            update_user_meta( $userid, 'altlogo_ai', $altlogo_ai_id );
+          update_user_meta( $userid, 'alt_logo_ai', $altlogo_ai_id );
             wp_send_json_success([
-                'message'   => 'Logo has been successfully Save!'
+                'message'   => 'Logo has been successfully Save!',
             ]);
 
         }
         if(!empty($altlogo_svg_id) ){
-            update_user_meta( $userid, 'altlogo_svg', $altlogo_svg_id );
+            update_user_meta( $userid, 'alt_logo_svg', $altlogo_svg_id );
             wp_send_json_success([
-                'message'   => 'Logo has been successfully Save!'
+                'message'   => 'Logo has been successfully Save!',
             ]);
         }
         if(!empty($altlogo_pdf_id)){
-            update_user_meta( $userid, 'altlogo_pdf', $altlogo_pdf_id );
+            update_user_meta( $userid, 'alt_logo_pdf', $altlogo_pdf_id );
             wp_send_json_success([
-            'message'   => 'Logo has been successfully Save!'
+            'message'   => 'Logo has been successfully Save!',
         ]);
 
         }
+
+ 
         
 
      }
-
 
 
 

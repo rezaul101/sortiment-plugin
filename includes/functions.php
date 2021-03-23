@@ -30,16 +30,6 @@ function auto_redirect_after_logout()
 // 	 exit();
 // }
 
-add_action('template_redirect','custom_shop_page_redirect');
-function custom_shop_page_redirect(){
-    if (class_exists('WooCommerce')){
-        if(is_product()){
-            wp_redirect(home_url('/sortiment-order-products-single/'));
-            exit();
-        }
-    } 
-    return;
-}
 
 
 /*

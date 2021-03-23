@@ -7,7 +7,6 @@
 include __DIR__ . '/dashboard-header.php';
 include __DIR__ . '/dashboard-leftside.php';
 
-
 ?>
 		
 		<div class="dashboard-right-side">
@@ -20,6 +19,11 @@ include __DIR__ . '/dashboard-leftside.php';
 		            <div class="product-image-div">
 		                <div class="product-image-main">
 		                    <img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/main-shirt.jpg" calss="productimg">
+
+
+
+
+
 		                </div>
 		                <div class="product-image-thumbnail">
 		                    <img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/yellow-shirt.jpg" calss="productthumb">

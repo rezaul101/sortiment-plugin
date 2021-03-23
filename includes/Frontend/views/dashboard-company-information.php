@@ -14,27 +14,27 @@ $profile_pic =  get_user_meta( $userid , 'ss_pro_pic', true );
 // clolor logo 
 $companycolor_jpg =  get_user_meta( $userid , 'colorlogo_jpg', true );
 $companycolor_png =  get_user_meta( $userid , 'colorlogo_png', true );
-$companycolor_ai =   get_user_meta( $userid , 'colorlogo_ai', true );
+$companycolor_ai  =   get_user_meta( $userid , 'colorlogo_ai', true );
 $companycolor_svg =  get_user_meta( $userid , 'colorlogo_svg', true );
 $companycolor_pdf =  get_user_meta( $userid , 'colorlogo_pdf', true );
 // white logo 
 $companywhite_jpg =  get_user_meta( $userid , 'whitelogo_jpg', true );
 $companywhite_png =  get_user_meta( $userid , 'whitelogo_png', true );
-$companywhite_ai =   get_user_meta( $userid , 'whitelogo_ai', true );
+$companywhite_ai  =   get_user_meta( $userid , 'whitelogo_ai', true );
 $companywhite_svg =  get_user_meta( $userid , 'whitelogo_svg', true );
 $companywhite_pdf =  get_user_meta( $userid , 'whitelogo_pdf', true );
 // black logo 
 $companyblack_jpg =  get_user_meta( $userid , 'blacklogo_jpg', true );
 $companyblack_png =  get_user_meta( $userid , 'blacklogo_png', true );
-$companyblack_ai =   get_user_meta( $userid , 'blacklogo_ai', true );
+$companyblack_ai  =   get_user_meta( $userid , 'blacklogo_ai', true );
 $companyblack_svg =  get_user_meta( $userid , 'blacklogo_svg', true );
 $companyblack_pdf =  get_user_meta( $userid , 'blacklogo_pdf', true );
 // alter logo 
-$companyalt_jpg =  get_user_meta( $userid , 'altlogo_jpg', true );
-$companyalt_png =  get_user_meta( $userid , 'altlogo_png', true );
-$companyalt_ai =   get_user_meta( $userid , 'altlogo_ai', true );
-$companyalt_svg =  get_user_meta( $userid , 'altlogo_svg', true );
-$companyalt_pdf =  get_user_meta( $userid , 'altlogo_pdf', true );
+$companyalt_jpg =  get_user_meta( $userid , 'alt_logo_jpg', true );
+$companyalt_png =  get_user_meta( $userid , 'alt_logo_png', true );
+$companyalt_ai 	=   get_user_meta( $userid , 'alt_logo_ai', true );
+$companyalt_svg =  get_user_meta( $userid , 'alt_logo_svg', true );
+$companyalt_pdf =  get_user_meta( $userid , 'alt_logo_pdf', true );
 
 //var_dump($userid);
 //echo $loginuser_id;
@@ -107,8 +107,8 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 
     		        <div class="rightside-image-div">
 					<?php 
-						$image  = wp_get_attachment_image_src($profile_pic, 220, '', '');
-
+						$image  = wp_get_attachment_image_src($profile_pic, array('220','220'), true);
+					
 						if ( !empty($image) ) {
 							echo ' <img src=" '. $image[0] .'" class="company-information-img" id="ss-img">';
 						
@@ -138,7 +138,8 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 							JPG Format
 							<input type="hidden" name="colorlogo_jpg_id" id="colorlogo_jpg_id" class="inputimage" value="" />
 							<?php 
-							$image  = wp_get_attachment_image_src($companycolor_jpg, 130, '', '');
+							$image  = wp_get_attachment_image_src($companycolor_jpg, array('130','130'), true);
+							
 							if ( !empty($image) ) {
 								echo ' <img src=" '. $image[0] .'" class="upload-img" id="colorlogo_jpg">';
 							}else {
@@ -151,7 +152,8 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 							PNG Format
 							<input type="hidden" name="colorlogo_png_id" id="colorlogo_png_id" class="inputimage" value="" />
 							<?php 
-							$image  = wp_get_attachment_image_src($companycolor_png, 130, '', '');
+							$image  = wp_get_attachment_image_src($companycolor_png, array('130','130'), true);
+							
 							if ( !empty($image) ) {
 								echo ' <img src=" '. $image[0] .'" class="upload-img" id="colorlogo_png">';
 							}else {
@@ -164,7 +166,7 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 							AI Format
 							<input type="hidden" name="colorlogo_ai_id" id="colorlogo_ai_id" class="inputimage" value="" />
 							<?php 
-							$image  = wp_get_attachment_image_src($companycolor_ai, 130, '', '');
+							$image  = wp_get_attachment_image_src($companycolor_ai, array('130','130'), true);
 							if ( !empty($image) ) {
 								echo ' <img src=" '. $image[0] .'" class="upload-img" id="colorlogo_ai">';
 							}else {
@@ -177,7 +179,7 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 							SVG Format
 							<input type="hidden" name="colorlogo_svg_id" id="colorlogo_svg_id" class="inputimage" value="" />
 							<?php 
-							$image  = wp_get_attachment_image_src($companycolor_svg, 130, '', '');
+							$image  = wp_get_attachment_image_src($companycolor_svg, array('130','130'), true);
 							if ( !empty($image) ) {
 								echo ' <img src=" '. $image[0] .'" class="upload-img" id="colorlogo_svg">';
 							}else {
@@ -190,7 +192,7 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 							PDF Format
 							<input type="hidden" name="colorlogo_pdf_id" id="colorlogo_pdf_id" class="inputimage" value="" />
 							<?php 
-							$image  = wp_get_attachment_image_src($companycolor_pdf, 130, '', '');
+							$image  = wp_get_attachment_image_src($companycolor_pdf, array('130','130'), true);
 							if ( !empty($image) ) {
 								echo ' <img src=" '. $image[0] .'" class="upload-img" id="colorlogo_pdf">';
 							}else {
@@ -218,7 +220,7 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 							JPG Format
 							<input type="hidden" name="whitelogo_jpg_id" id="whitelogo_jpg_id" class="inputimage" value="" />
 							<?php 
-							$image  = wp_get_attachment_image_src($companywhite_jpg, 130, '', '');
+							$image  = wp_get_attachment_image_src($companywhite_jpg, array('130','130'), true);
 							if ( !empty($image) ) {
 								echo ' <img src=" '. $image[0] .'" class="upload-img" id="whitelogo_jpg">';
 							}else {
@@ -231,7 +233,7 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 							PNG Format
 							<input type="hidden" name="whitelogo_png_id" id="whitelogo_png_id" class="inputimage" value="" />
 							<?php 
-							$image  = wp_get_attachment_image_src($companywhite_png, 130, '', '');
+							$image  = wp_get_attachment_image_src($companywhite_png, array('130','130'), true);
 							if ( !empty($image) ) {
 								echo ' <img src=" '. $image[0] .'" class="upload-img" id="whitelogo_png">';
 							}else {
@@ -244,7 +246,7 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 							AI Format
 							<input type="hidden" name="whitelogo_ai_id" id="whitelogo_ai_id" class="inputimage" value="" />
 							<?php 
-							$image  = wp_get_attachment_image_src($companywhite_ai, 130, '', '');
+							$image  = wp_get_attachment_image_src($companywhite_ai, array('130','130'), true);
 							if ( !empty($image) ) {
 								echo ' <img src=" '. $image[0] .'" class="upload-img" id="whitelogo_ai">';
 							}else {
@@ -257,7 +259,7 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 							SVG Format
 							<input type="hidden" name="whitelogo_svg_id" id="whitelogo_svg_id" class="inputimage" value="" />
 							<?php 
-							$image  = wp_get_attachment_image_src($companywhite_svg, 130, '', '');
+							$image  = wp_get_attachment_image_src($companywhite_svg, array('130','130'), true);
 							if ( !empty($image) ) {
 								echo ' <img src=" '. $image[0] .'" class="upload-img" id="whitelogo_svg">';
 							}else {
@@ -270,7 +272,7 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 							PDF Format
 							<input type="hidden" name="whitelogo_pdf_id" id="whitelogo_pdf_id" class="inputimage" value="" />
 							<?php 
-							$image  = wp_get_attachment_image_src($companywhite_pdf, 130, '', '');
+							$image  = wp_get_attachment_image_src($companywhite_pdf, array('130','130'), true);
 							if ( !empty($image) ) {
 								echo ' <img src=" '. $image[0] .'" class="upload-img" id="whitelogo_pdf">';
 							}else {
@@ -299,7 +301,7 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 							JPG Format
 							<input type="hidden" name="blacklogo_jpg_id" id="blacklogo_jpg_id" class="inputimage" value="" />
 							<?php 
-							$image  = wp_get_attachment_image_src($companyblack_jpg, 130, '', '');
+							$image  = wp_get_attachment_image_src($companyblack_jpg, array('130','130'), true);
 							if ( !empty($image) ) {
 								echo ' <img src=" '. $image[0] .'" class="upload-img" id="blacklogo_jpg">';
 							}else {
@@ -312,7 +314,7 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 							PNG Format
 							<input type="hidden" name="blacklogo_png_id" id="blacklogo_png_id" class="inputimage" value="" />
 							<?php 
-							$image  = wp_get_attachment_image_src($companyblack_png, 130, '', '');
+							$image  = wp_get_attachment_image_src($companyblack_png, array('130','130'), true);
 							if ( !empty($image) ) {
 								echo ' <img src=" '. $image[0] .'" class="upload-img" id="blacklogo_png">';
 							}else {
@@ -325,7 +327,7 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 							AI Format
 							<input type="hidden" name="blacklogo_ai_id" id="blacklogo_ai_id" class="inputimage" value="" />
 							<?php 
-							$image  = wp_get_attachment_image_src($companyblack_ai, 130, '', '');
+							$image  = wp_get_attachment_image_src($companyblack_ai, array('130','130'), true);
 							if ( !empty($image) ) {
 								echo ' <img src=" '. $image[0] .'" class="upload-img" id="blacklogo_ai">';
 							}else {
@@ -338,7 +340,7 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 							SVG Format
 							<input type="hidden" name="blacklogo_svg_id" id="blacklogo_svg_id" class="inputimage" value="" />
 							<?php 
-							$image  = wp_get_attachment_image_src($companyblack_svg, 130, '', '');
+							$image  = wp_get_attachment_image_src($companyblack_svg, array('130','130'), true);
 							if ( !empty($image) ) {
 								echo ' <img src=" '. $image[0] .'" class="upload-img" id="blacklogo_svg">';
 							}else {
@@ -351,7 +353,7 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 							PDF Format
 							<input type="hidden" name="blacklogo_pdf_id" id="blacklogo_pdf_id" class="inputimage" value="" />
 							<?php 
-							$image  = wp_get_attachment_image_src($companyblack_pdf, 130, '', '');
+							$image  = wp_get_attachment_image_src($companyblack_pdf, array('130','130'), true);
 							if ( !empty($image) ) {
 								echo ' <img src=" '. $image[0] .'" class="upload-img" id="blacklogo_pdf">';
 							}else {
@@ -380,7 +382,7 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 							JPG Format
 							<input type="hidden" name="altlogo_jpg_id" id="altlogo_jpg_id" class="inputimage" value="" />
 							<?php 
-							$image  = wp_get_attachment_image_src($companyalt_jpg, 130, '', '');
+							$image  = wp_get_attachment_image_src($companyalt_jpg, array('130','130'), true);
 							if ( !empty($image) ) {
 								echo ' <img src=" '. $image[0] .'" class="upload-img" id="altlogo_jpg">';
 							}else {
@@ -393,7 +395,7 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 							PNG Format
 							<input type="hidden" name="altlogo_png_id" id="altlogo_png_id" class="inputimage" value="" />
 							<?php 
-							$image  = wp_get_attachment_image_src($companyalt_png, 130, '', '');
+							$image  = wp_get_attachment_image_src($companyalt_png, array('130','130'), true);
 							if ( !empty($image) ) {
 								echo ' <img src=" '. $image[0] .'" class="upload-img" id="altlogo_png">';
 							}else {
@@ -406,7 +408,7 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 							AI Format
 							<input type="hidden" name="altlogo_ai_id" id="altlogo_ai_id" class="inputimage" value="" />
 							<?php 
-							$image  = wp_get_attachment_image_src($companyalt_ai, 130, '', '');
+							$image  = wp_get_attachment_image_src($companyalt_ai, array('130','130'), true);
 							if ( !empty($image) ) {
 								echo ' <img src=" '. $image[0] .'" class="upload-img" id="altlogo_ai">';
 							}else {
@@ -419,7 +421,7 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 							SVG Format
 							<input type="hidden" name="altlogo_svg_id" id="altlogo_svg_id" class="inputimage" value="" />
 							<?php 
-							$image  = wp_get_attachment_image_src($companyalt_svg, 130, '', '');
+							$image  = wp_get_attachment_image_src($companyalt_svg, array('130','130'), true);
 							if ( !empty($image) ) {
 								echo ' <img src=" '. $image[0] .'" class="upload-img" id="altlogo_svg">';
 							}else {
@@ -432,7 +434,7 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info 
 							PDF Format
 							<input type="hidden" name="altlogo_pdf_id" id="altlogo_pdf_id" class="inputimage" value="" />
 							<?php 
-							$image  = wp_get_attachment_image_src($companyalt_pdf, 130, '', '');
+							$image  = wp_get_attachment_image_src($companyalt_pdf, array('130','130'), true);
 							if ( !empty($image) ) {
 								echo ' <img src=" '. $image[0] .'" class="upload-img" id="altlogo_pdf">';
 							}else {

@@ -378,9 +378,35 @@ h4{ font-size: 32px; }
 	-ms-flex-align: center;
 	align-items: center;
 }
-.header-cart {
+
+
+.header-div-row .cart-customlocation {
+	display: inline-flex;
+	position: relative;
+}
+.header-div-row .header-cart {
 	max-width: 40px;
 	padding-right: 10px;
+	object-fit: contain;
+}
+.header-div-row .item-cart {
+	background-color: blue;
+	color: #fff;
+	height: 22px;
+	width: 22px;
+	text-align: center;
+	display: flex;
+	border-radius: 100%;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	position: absolute;
+	left: 6px;
+	top: -10px;
+}
+.header-div-row  .woocommerce-Price-currencySymbol,
+.header-div-row  .incart {
+	padding-left: 5px;
 }
 .header-search {
 	max-width: 50px;
@@ -1214,12 +1240,12 @@ ul.das_left_social {
 	position: absolute;
 	opacity: 0;
 	cursor: pointer;
-	width: 130px;
+	max-width: 130px;
 	height: 66px;
 	margin-top: 30px;
 }
 .upload-img {
-	width: 130px;
+	max-width: 130px;
 	margin-top: 10px;
 	cursor: pointer;
 }

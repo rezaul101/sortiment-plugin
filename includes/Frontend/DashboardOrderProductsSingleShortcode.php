@@ -13,7 +13,11 @@ class DashboardOrderProductsSingleShortcode {
     function __construct() {
         // Register a new shortcode: [sortiment_order_products_single]
         add_shortcode( 'sortiment_order_products_single', [ $this, 'sortiment_order_products_single_shortcode' ] );
-        
+
+        // Right column - meta
+        add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+
+            
     }
 
     /**

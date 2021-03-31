@@ -7,6 +7,24 @@
 include __DIR__ . '/dashboard-header.php';
 include __DIR__ . '/dashboard-leftside.php';
 
+// global $wpdb;   
+// $loginuser_id = get_current_user_id();
+// $current_user = wp_get_current_user();
+// $get_companyid = get_user_meta($loginuser_id, 'company_id');
+// $set_companyid = $get_companyid[0];
+
+global $product;
+$productid = $_GET["postid"];
+$productquantity = $_GET["add-quantity"];
+$product = wc_get_product( $productid );
+
+$terms = get_the_terms( $productid , 'product_cat' );
+$nterms = get_the_terms( $productid , 'product_tag'  );
+foreach ($terms  as $term  ) {                    
+    $product_cat_id = $term->term_id;              
+    $product_cat_name = $term->name;            
+    break;
+}
 
 ?>
 		
@@ -14,7 +32,7 @@ include __DIR__ . '/dashboard-leftside.php';
 		    
 		    <div class="product-page-right">
 		        <div class="go-back-div">
-		            <a href="<?php echo home_url('sortiment-my-products-cart') ?>"><img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/cart.png" class="arrow-icon"> <strong> Cart </strong> </a>
+		            <a href="/sortiment-my-products-cart?postid=<?php echo $productid ?>"><img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/cart.png" class="arrow-icon"> <strong> Cart </strong> </a>
 		        </div>
 		        <div class="product-image-text-div product_cart_main_div">
 		            <div class="product-cart-div">
@@ -28,10 +46,10 @@ include __DIR__ . '/dashboard-leftside.php';
                                 
                                 <tr>
                                 <td class="cart-porduct">
-                                <div class="cart-img"><img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/full-shirt2.png"></div>
-                                <div class="cart-text"><strong> Name of product </strong><br>Product category </div>
+                                <div class="cart-img"><?php echo $product->get_image(); ?></div>
+                                <div class="cart-text"><strong> <?php echo $product->get_title(); ?> </strong><br><?php echo $product_cat_name;?></div>
                                 </td>
-                                <td> <button id="remove_agent"> – </button> <span class="count">1</span> <button id="add_agent"> +</button></td>
+                                <td> <button id="remove_agent"> – </button> <span class="count"><?php echo $productquantity; ?></span> <button id="add_agent"> +</button></td>
                                 <td>4500 dkk</td>
                                 </tr>
                             </tbody>
@@ -79,23 +97,38 @@ include __DIR__ . '/dashboard-leftside.php';
                         <!-- tab end -->
                         
 		            </div> <!-- product-cart-div end -->
-		            
+		            <?php
+                   // $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info WHERE company_id = $set_companyid" );
+                    //foreach ($retrieve_data as $retrieved_data){ 
+                    ?>
 		            <div class="information-div">
 		                <div class="information-formtitlediv">
     		                <div class="product-text-title">
     		                    <h5 class="blue-title">Your Information</h5>
-    		                    <form action="#" class="information_form"> 
-                                  <input type="text" id="informationName" placeholder="Name"><br>
-                                  <input type="email" id="informationEmail" placeholder="Email"><br>
-                                  <input type="text" id="informationNumber" placeholder="Phone number"><br>
-                                  <input type="text" id="informationCompnay" placeholder="Company name"><br>
-                                  <input type="text" id="informationpostalCode" placeholder="Postal code"><br>
-                                  <input type="text" id="informationAddress" placeholder="Address"><br><br>
-                                  <a type="submit"href="<?php echo home_url('sortiment-my-products-checkout') ?>" class="btn blue-btn getbutton"> Next </a> 
-                                </form> 
+    		                    <form id="company-profile-update-form" action="#" method="post" class="information_form"> 
+                                <input type="text" id="name" name="name" placeholder="Name" value="<?php echo esc_attr( $current_user->user_login ); ?>"> 
+                                <input type="email" id="company_email" name="company_email" placeholder="Email" value="<?php echo esc_attr( $retrieved_data->company_email ); ?>"> 
+                                <input type="text" id="phone_number" name="phone_number" placeholder="+00 00 00 00" value="<?php echo esc_attr( $retrieved_data->phone_number ); ?>"> 
+                                <input type="text" id="company_name" name="company_name" placeholder="Company Name" value="<?php echo esc_attr( $retrieved_data->company_name ); ?>">
+                                <input type="text" id="zip_code" name="zip_code" placeholder="Zip Code" value="<?php echo esc_attr( $retrieved_data->zip_code ); ?>">  
+                                <input type="text" id="company_address" name="company_address" placeholder="Company address" value="<?php echo esc_attr( $retrieved_data->company_address ); ?>"> 
+                                <?php wp_nonce_field( 'company-profile' ); ?>
+                                    <input type="hidden"  name="id" value="<?php echo $retrieved_data->company_id ; ?>">
+                                    <input type="hidden" name="action" value="update_company_profile">
+                                    <a id="submit" name="submit" type="submit" href="/sortiment-my-products-checkout?postid=<?php echo $productid ?>" class="btn blue-btn getbutton"> Next </a> 	
+                                    </div>
+                                        <div class="message">
+                                            <p class="description success"></p>
+                                            <p class="description error"></p>
+                                    </div>
+                                </div>
+                             </form> 
     		                </div>
 		                </div>
 		            </div>
+                    <?php 
+    			//	}
+				?>
 		        </div>
 		        
 		    </div> <!-- rproduct-page-right div end -->    

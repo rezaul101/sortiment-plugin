@@ -49,118 +49,47 @@ include __DIR__ . '/dashboard-leftside.php';
 		    </div>
 
 	<div class="shop-div">
+		<?php
+		
+		 $args = array(
+            'post_type' => 'product',
+			'assign_product_company_id' => $set_companyid,
+            'posts_per_page' => '-1',
+			'meta_query' => array (
+				array(
+					'key' => 'assign_product_company_id',
+					'value' => $set_companyid,
+					'compare' => 'NOT EXISTS',
+					)
+				)
+            );
+        $loop = new WP_Query( $args );
+        if ( $loop->have_posts() ) {
+			while ( $loop->have_posts() ) {
+				 $loop->the_post();
+				 
+		?>
+
 		<div class="shop-image_text-div">
-			<a href="<?php echo home_url('sortiment-order-products-single') ?>">
-			<img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/full-shirt1.png" class="shop-image">
-			<h5> Name of product</h5>
-			<p>Request a price</p>
+			<a href="/sortiment-order-products-single?postid=<?php echo $loop->post->ID ?>	">
+			
+			<?php 
+				$id = $loop->post->ID;
+				$image = wp_get_attachment_image_src( get_post_thumbnail_id( $id ), 'single-post-thumbnail' );
+			?>
+			<img class="shop-image" src="<?php echo $image[0]; ?>" data-id="<?php echo $id; ?>" />
+			<?php echo '<h5>' . get_the_title() . '</h5>'; ?>
 			</a>
+			<a href="/sortiment-order-products-single?postid=<?php echo $loop->post->ID ?>	">Request a price</a>
+			
 		</div>
-		<div class="shop-image_text-div">
-			<a href="#">
-			<img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/quater-pant.png" class="shop-image">
-			<h5> Name of product</h5>
-			<p>Request a price</p>
-			</a>
-		</div>
-		<div class="shop-image_text-div">
-			<a href="#">
-			<img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/t-shirt.png" class="shop-image">
-			<h5> Name of product</h5>
-			<p>Request a price</p>
-			</a>
-		</div>
-		<div class="shop-image_text-div">
-			<a href="#">
-			<img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/full-shirt2.png" class="shop-image">
-			<h5> Name of product</h5>
-			<p>Request a price</p>
-			</a>
-		</div>
-		<div class="shop-image_text-div">
-			<a href="#">
-			<img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/full-shirt1.png" class="shop-image">
-			<h5> Name of product</h5>
-			<p>Request a price</p>
-			</a>
-		</div>
-		<div class="shop-image_text-div">
-			<a href="#">
-			<img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/quater-pant.png" class="shop-image">
-			<h5> Name of product</h5>
-			<p>Request a price</p>
-			</a>
-		</div>
-		<div class="shop-image_text-div">
-			<a href="#">
-			<img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/t-shirt.png" class="shop-image">
-			<h5> Name of product</h5>
-			<p>Request a price</p>
-			</a>
-		</div>
-		<div class="shop-image_text-div">
-			<a href="#">
-			<img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/full-shirt2.png" class="shop-image">
-			<h5> Name of product</h5>
-			<p>Request a price</p>
-			</a>
-		</div>
-		<div class="shop-image_text-div">
-			<a href="#">
-			<img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/full-shirt1.png" class="shop-image">
-			<h5> Name of product</h5>
-			<p>Request a price</p>
-			</a>
-		</div>
-		<div class="shop-image_text-div">
-			<a href="#">
-			<img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/quater-pant.png" class="shop-image">
-			<h5> Name of product</h5>
-			<p>Request a price</p>
-			</a>
-		</div>
-		<div class="shop-image_text-div">
-			<a href="#">
-			<img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/t-shirt.png" class="shop-image">
-			<h5> Name of product</h5>
-			<p>Request a price</p>
-			</a>
-		</div>
-		<div class="shop-image_text-div">
-			<a href="#">
-			<img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/full-shirt2.png" class="shop-image">
-			<h5> Name of product</h5>
-			<p>Request a price</p>
-			</a>
-		</div>
-		<div class="shop-image_text-div">
-			<a href="#">
-			<img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/full-shirt1.png" class="shop-image">
-			<h5> Name of product</h5>
-			<p>Request a price</p>
-			</a>
-		</div>
-		<div class="shop-image_text-div">
-			<a href="#">
-			<img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/quater-pant.png" class="shop-image">
-			<h5> Name of product</h5>
-			<p>Request a price</p>
-			</a>
-		</div>
-		<div class="shop-image_text-div">
-			<a href="#">
-			<img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/t-shirt.png" class="shop-image">
-			<h5> Name of product</h5>
-			<p>Request a price</p>
-			</a>
-		</div>
-		<div class="shop-image_text-div">
-			<a href="#">
-			<img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/full-shirt2.png" class="shop-image">
-			<h5> Name of product</h5>
-			<p>Request a price</p>
-			</a>
-		</div>
+		<?php 
+		}
+			
+			
+	} ?>
+		
+
 		
 	</div>
 			

@@ -29,8 +29,8 @@ class DashboardCompanyInformationShortcode {
     function sortiment_company_information_shortcode( $atts, $content = '') {
 
         $user = wp_get_current_user();
-        if ( in_array( 'company', (array) $user->roles ) ) {
-            //The user has the "company" role 
+        if (  in_array( 'company', (array) $user->roles ) ) {
+            //The user has the "company" role, is_admin()
             wp_enqueue_script( 'sortiment-script-company-profile-update' );
            // wp_enqueue_script( 'sortiment-script' );
             wp_enqueue_style( 'sortiment-style' );
@@ -42,6 +42,7 @@ class DashboardCompanyInformationShortcode {
         }else{
             echo '<div class="wrap">';
              echo 'You are not Company.';
+             echo '<a href="'. home_url('sortiment-dashboard').' "> Back to Dashboard</a>';
              echo '</div>';
          } 
 

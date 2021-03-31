@@ -54,6 +54,15 @@ class Ajax {
         add_action('profile_update', 'file_upload_callback_alt_logo');
        // add_action('user_register', 'file_upload_callback_alt_logo');
 
+        
+       // deny message acction approved_message_handler
+       add_action( 'wp_ajax_company_deny_product', [ $this, 'deny_message_handler'] );
+       add_action( 'wp_ajax_nopriv_company_deny_product', [ $this, 'deny_message_handler'] );
+
+        // approved_message_handler
+        add_action( 'wp_ajax_approved_porduct', [ $this, 'approved_message_handler'] );
+        add_action( 'wp_ajax_nopriv_approved_porduct', [ $this, 'approved_message_handler'] );
+
 
         if (!is_user_logged_in()) {
             add_action( 'wp_ajax_nopriv_softx_sortiment_login', [ $this, 'submit_login'] );
@@ -73,10 +82,7 @@ class Ajax {
 
     public function submit_registation() {
         global $wpdb;
-
-
-
-        //check_ajax_referer('new-user');
+        //check_ajax_referer('new-user'); deny_message_handler
         if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'new-user' ) ) {
             wp_send_json_success([
                 'message' => 'Nonce verification failed!'
@@ -562,12 +568,142 @@ class Ajax {
             'message'   => 'Logo has been successfully Save!',
         ]);
 
-        }
-
- 
-        
+        }   
 
      }
+
+     /**
+     * deny_message_handler
+     *
+     * @return string 
+     *
+     **/
+    public function deny_message_handler() {
+        global $wpdb;
+
+        $loginuser_id = get_current_user_id();
+        $get_companyid = get_user_meta($loginuser_id, 'company_id');
+        $set_companyid = $get_companyid[0];
+
+
+        if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'product_deny' ) ) {
+            wp_send_json_success([
+                'message' => 'Nonce verification failed!'
+            ]);
+        }
+
+        $productid          =  $_REQUEST['productid'];
+        $product_name       =  $_REQUEST['product_name'];
+        $product_price      =  $_REQUEST['product_pirce'];
+        $deny_message       =  $_REQUEST['deny_message'];
+        $status             =  $_REQUEST['deny'];
+       
+
+        if ( empty( $deny_message ) ) {
+            $this->errors['deny_message'] = __( 'Please write your message.', 'softx-sortminet' );
+        }
+
+        if ( ! empty( $this->errors ) ) {
+             wp_send_json_error( ['error_message' => $this->errors ]);
+        }
+
+        else {
+            
+            $companydenymessage = $wpdb->insert("{$wpdb->prefix}company_order_summary", array(
+                'company_id' 	    =>   $set_companyid,
+                'product_id' 	    =>   $productid,
+                'product_name' 	    =>   $product_name,
+                'price' 	        =>   $product_price,
+                'deny_message' 	    =>   $deny_message,
+                'status' 	        =>   $status,
+
+
+            ));
+
+            $deny_message = is_wp_error($companydenymessage );
+
+
+            if ( ! is_wp_error( $deny_message) ) {
+                update_post_meta( $productid, 'company_product_status', 'denied' );   
+                wp_send_json_success([
+                    'message'   => 'Deny message successfully send.'
+                ]);
+                
+            } else {
+                wp_send_json_error( [
+                    'message' => 'Deny message has been failed!'
+                ] );
+            } 
+
+        }
+
+    }
+
+    
+     /**
+     * approved_message_handler
+     *
+     * @return string 
+     *
+     **/
+    public function approved_message_handler() {
+        global $wpdb;
+
+        $loginuser_id = get_current_user_id();
+        $get_companyid = get_user_meta($loginuser_id, 'company_id');
+        $set_companyid = $get_companyid[0];
+
+
+        if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'approve' ) ) {
+            wp_send_json_success([
+                'message' => 'Nonce verification failed!'
+            ]);
+        }
+
+        $productid          =  $_REQUEST['productid'];
+        $product_name       =  $_REQUEST['product_name'];
+        $product_price      =  $_REQUEST['product_pirce'];
+        $status             =  $_REQUEST['approve'];
+       
+
+        if ( empty( $status ) ) {
+            $this->errors['approved'] = __( 'Please Click approve button.', 'softx-sortminet' );
+        }
+
+        if ( ! empty( $this->errors ) ) {
+             wp_send_json_error( ['error_message' => $this->errors ]);
+        }
+
+        else {
+            
+            $approveproduct = $wpdb->insert("{$wpdb->prefix}company_order_summary", array(
+                'company_id' 	    =>   $set_companyid,
+                'product_id' 	    =>   $productid,
+                'product_name' 	    =>   $product_name,
+                'price' 	        =>   $product_price,
+                'status' 	        =>   $status,
+
+
+            ));
+
+            $approved = is_wp_error($approveproduct );
+
+
+            if ( ! is_wp_error( $approved ) ) {
+                update_post_meta( $productid, 'company_product_status', 'approved' );   
+                wp_send_json_success([
+                    'message'   => 'Approved successfully.'
+                ]);
+                
+            } else {
+                wp_send_json_error( [
+                    'message' => 'Approved has been failed!.'
+                ] );
+            } 
+
+        }
+
+    }
 
 
 

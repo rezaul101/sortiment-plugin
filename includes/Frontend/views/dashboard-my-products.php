@@ -30,16 +30,7 @@ include __DIR__ . '/dashboard-leftside.php';
                 </select>
 		    </div>
 		    
-		    <div class="shop-div">
-		        <div class="shop-image_text-div">
-		            <a href="<?php echo home_url('sortiment-my-products-single') ?>">
-					<span class="status-text pending"> Pending approved </span>	
-		            <img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/full-shirt1.png" class="shop-image">
-		            <h5> Name of product</h5>
-		            <p>Request a price</p>
-		            </a>
-		        </div>
-		        
+		<div class="shop-div">	        
 		<?php
 			$args = array(
 				'post_type' => 'product',
@@ -62,6 +53,7 @@ include __DIR__ . '/dashboard-leftside.php';
 			if ( $loop->have_posts() ) :
 				while ( $loop->have_posts() ) :
 				$loop->the_post();
+				//$value = get_post_meta($post->ID,'picture_upload_1',true);
 
 		?>
 
@@ -71,19 +63,24 @@ include __DIR__ . '/dashboard-leftside.php';
 			<?php
 			//echo get_permalink()
 			$id = $loop->post->ID;
+			$product = wc_get_product( $id  );
+
+			$product_status = get_post_meta($id,'company_product_status',true);
+			//var_dump($product_status);
 			$image = wp_get_attachment_image_src( get_post_thumbnail_id( $id ), 'single-post-thumbnail' );
+
 			?>
-			<span class="status-text pending"> Pending approved </span>
+			<span class="status-text product-status <?php echo $product_status; ?>"> <?php echo $product_status; ?> </span>
 			<img class="shop-image" src="<?php echo $image[0]; ?>" data-id="<?php echo $id; ?>" />
-			<?php echo '<h5>' . get_the_title() . '</h5>'; ?>
+			<?php echo '<h5>' . $product->get_title() . '</h5>'; ?>
+			<?php echo '<p>' . $product->get_price_html() . '</p>'; ?>
 			</a>
-			<a href="/sortiment-order-products-single/">Request a price</a>
 			
 		</div>
 		<?php
 		endwhile;		
 		else :
-				echo "The product has not been assigned yet";
+				echo "The product has not been assigned yet.";
 		endif;
 	?>
 

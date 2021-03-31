@@ -501,7 +501,7 @@ h4{ font-size: 32px; }
 }
 .shop-div {
 	display: flex;
-	justify-content: space-around;
+	justify-content: flex-start;
 	margin-top: 25px;
 	flex-wrap: wrap;
 }
@@ -651,14 +651,16 @@ ul.das_left_social {
 	padding: 15px;
 }
 .go-back-div img {
-	width: 22px;
+
+	width:auto;
 	vertical-align: middle;
-	padding-right: 10;
+	padding-right: 10px;
 }
 .go-back-div a {
 	text-decoration: navajowhite;
 	color: #000000;
 	font-size: 22px;
+	display: flex;
 }
 .product-image-div {
 	width: 50%;
@@ -683,6 +685,7 @@ ul.das_left_social {
 }
 .product-image-main img {
 	max-width: 400px;
+	margin: 0 auto;
 }
 .product-image-thumbnail {
 	display: -webkit-box;
@@ -730,9 +733,15 @@ ul.das_left_social {
 .green{ background-color: green; }
 .product-text-button {
 	margin-top: 40px;
+	display: flex;
+	align-items: center;
+}
+p.approve-btn {
+    margin-right: 10px;
 }
 .product-qunatity-submit {
-    margin-top: 40px;
+    margin-top: 0px;
+	margin-bottom: 25px;;
 }
 .dashboard-right-side .blue-btn.getbutton {
 	text-transform: initial;
@@ -855,7 +864,7 @@ ul.das_left_social {
 	background-position-x: 163px !important;
 }
 .status-text {
-	font-size: 10px;
+	font-size: 12px;
 	background-color: #fcd841;
 	padding: 5px 8px;
 	border-radius: 30px;
@@ -863,6 +872,7 @@ ul.das_left_social {
 	margin-top: -25px;
 	color: white;
 	font-weight: bold;
+	text-transform: capitalize;
 }
 .pending { background-color: #fcd841; }
 .approved { background-color: #5ded5d; }

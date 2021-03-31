@@ -23,11 +23,11 @@ jQuery(document).ready(function($) {
 
 /* == approve button click div hide ==*/
 jQuery(document).ready(function($) {
-	$(".approve").click(function() {
+/*	$(".approve").click(function() {
 		$(".product-text-button" ).hide();
 		$(".product-qunatity-submit" ).show();
 	});
-
+*/
 	/*test code next time apply*/
 	$( "#add-quantity" ).keyup(function() {
 		var value = $( this ).val();
@@ -45,7 +45,7 @@ jQuery(document).ready(function($){
 			theclick = theclick + 1;
 			event.preventDefault();
 		} else {
-			$('a.deny'). attr("href", "/sortiment-my-products-deny-comment")
+			//$('a.deny'). attr("href", "/sortiment-my-products-deny-comment")
 		}
 	});
 });

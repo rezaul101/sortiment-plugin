@@ -40,6 +40,7 @@ class LoginShortcode {
             echo '<div class="wrap">';
              echo 'You are already logged in user. ';
              wp_loginout();
+             echo '<a href="'. home_url('sortiment-dashboard').' "> Back to Dashboard</a>';
              echo '</div>';
          }
     }

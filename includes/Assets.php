@@ -48,6 +48,12 @@ class Assets {
                 'deps'    => [ 'jquery' ]
             ],
 
+            'sortiment-script-ajax-call' => [
+                'src'     => SF_SORTIMENT_ASSETS . '/js/sortiment-ajax-call.js',
+                'version' => filemtime( SF_SORTIMENT_PATH . '/assets/js/sortiment-ajax-call.js' ),
+                'deps'    => [ 'jquery' ]
+            ],
+
             'sortiment-script-login-registation' => [
                 'src'     => SF_SORTIMENT_ASSETS . '/js/login-registation.js',
                 'version' => filemtime( SF_SORTIMENT_PATH . '/assets/js/login-registation.js' ),
@@ -112,6 +118,13 @@ class Assets {
             'baseurl' => home_url ( 'sortiment-company-information' ),
             
         ] );
+        //sortiment-script-ajax-call
+        wp_localize_script( 'sortiment-script-ajax-call', 'Sortiment_Ajax', [
+            'ajaxurl' => admin_url( 'admin-ajax.php' ),
+            'error'   => __( 'Something went wrong.', 'softx-sortiment' ),
+            
+        ] );
+
 
 
 

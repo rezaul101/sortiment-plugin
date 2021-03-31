@@ -7,6 +7,18 @@
 include __DIR__ . '/dashboard-header.php';
 include __DIR__ . '/dashboard-leftside.php';
 
+global $product;
+$productid = $_GET["postid"];
+$product = wc_get_product( $productid );
+
+$terms = get_the_terms( $productid , 'product_cat' );
+$nterms = get_the_terms( $productid , 'product_tag'  );
+foreach ($terms  as $term  ) {                    
+    $product_cat_id = $term->term_id;              
+    $product_cat_name = $term->name;            
+    break;
+}
+
 
 ?>
 		
@@ -14,7 +26,7 @@ include __DIR__ . '/dashboard-leftside.php';
 		    
 		    <div class="product-page-right">
 		        <div class="go-back-div">
-		            <a href="<?php echo home_url('sortiment-my-products-cart') ?>"><img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/cart.png" class="arrow-icon"> <strong> Cart </strong> </a>
+		            <a href="/sortiment-my-products-cart?postid=<?php echo $productid ?>"><img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/cart.png" class="arrow-icon"> <strong> Cart </strong> </a>
 		        </div>
 		        <div class="product-image-text-div product_cart_main_div">
 		            <div class="product-cart-div">
@@ -28,8 +40,8 @@ include __DIR__ . '/dashboard-leftside.php';
                                 
                                 <tr>
                                 <td class="cart-porduct">
-                                <div class="cart-img"><img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/full-shirt2.png"></div>
-                                <div class="cart-text"><strong> Name of product </strong><br>Product category </div>
+                                <div class="cart-img"><?php echo $product->get_image(); ?></div>
+                                <div class="cart-text"><strong> <?php echo $product->get_title(); ?> </strong><br><?php echo $product_cat_name;?> </div>
                                 </td>
                                 <td> <button id="remove_agent"> – </button> <span class="count">1</span> <button id="add_agent"> +</button></td>
                                 <td>4500 dkk</td>
@@ -107,7 +119,7 @@ include __DIR__ . '/dashboard-leftside.php';
                                 </table>
                                 <p class="red-text"> Please fill out all fields and product information </p>
                                 
-                                <p class="two_btn"> <a type="submit" href="<?php echo home_url('sortiment-my-products-cart') ?>" class="goback_link"> Go back </a> <a type="submit" href="#" class="btn blue-btn twobutton"> Pay now </a> </p>
+                                <p class="two_btn"> <a type="submit" href="/sortiment-my-products-cart?postid=<?php echo $productid ?>" class="goback_link"> Go back </a> <a type="submit" href="#" class="btn blue-btn twobutton"> Pay now </a> </p>
                                 </form> 
                                 
     		                </div>

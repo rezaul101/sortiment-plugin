@@ -25,10 +25,11 @@ class DashboardMyProductDenyComment {
      * @return string
      */
 
-    // The callback function that will replace 
+    // The callback function that will replace  
     function sortiment_my_products_deny_comment_shortcode( $atts, $content = '') {
         if ( is_user_logged_in() ) {  
         wp_enqueue_script( 'sortiment-script' );
+        wp_enqueue_script( 'sortiment-script-ajax-call' );
         wp_enqueue_style( 'sortiment-style' );
         
             ob_start();

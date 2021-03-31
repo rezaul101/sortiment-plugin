@@ -29,6 +29,7 @@ class DashboardMyProductsSingleShortcode {
     function sortiment_my_products_single_shortcode( $atts, $content = '') {
             if ( is_user_logged_in() ) {
             wp_enqueue_script( 'sortiment-script' );
+            wp_enqueue_script( 'sortiment-script-ajax-call' );
             wp_enqueue_style( 'sortiment-style' );
             
                 ob_start();

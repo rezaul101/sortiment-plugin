@@ -96,8 +96,8 @@ $product = wc_get_product( $productid );
 		                <div class="product-text-color">
 						<?php 
 
-
-
+						
+/*
 						$has_row    = false;
 						$attributes = $product->get_attributes();
 						ob_start();
@@ -133,10 +133,10 @@ $product = wc_get_product( $productid );
 							ob_end_clean();
 						}
 					}
-
-						if ( $product->is_type( 'variable' ) ) {
-							//echo  $product->get_attribute( 'color' ) .'<br/>';
-							//echo  $product->get_attribute( 'size' );$productid
+*/
+						if ( $product->is_type( 'variable' ) ) {?>
+							<p><strong> Color variety:</strong> <?php echo $product->get_attribute( 'color' ); ?></p>
+							<?php
 						}
 						
 

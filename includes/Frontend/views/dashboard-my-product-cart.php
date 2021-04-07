@@ -17,7 +17,7 @@ global $product;
 $productid = $_GET["postid"];
 $productquantity = $_GET["add-quantity"];
 $product = wc_get_product( $productid );
-
+//echo $productquantity;
 $terms = get_the_terms( $productid , 'product_cat' );
 $nterms = get_the_terms( $productid , 'product_tag'  );
 foreach ($terms  as $term  ) {                    
@@ -135,7 +135,7 @@ foreach ($terms  as $term  ) {
 			
 			<div class="form-popup addemployee" id="myForm">
                
-               <form action="#" class="form-container addemployee-form">
+               <form action="#" method="post" class="form-container addemployee-form" id="addemployee-form">
                    <img src="<?php echo SF_SORTIMENT_ASSETS ?>/images/close-icon.png" class="close-icon"  onclick="closeForm()" />     
                    
                    <div class="modal-header">
@@ -155,10 +155,19 @@ foreach ($terms  as $term  ) {
                     </div>
                    
                    <div class="buttn-item">
-                       <a class="btn add-btn addanotherbtn" href="#"> Add another </a>
-                       <a class="btn blue-btn requestbtn" href="#"> Done </a>
-                   </div>    
+                   <?php wp_nonce_field( 'new-employee-user' ); ?>
+                   <input type="hidden"  name="company_id" value="<?php echo $retrieved_data->company_id ; ?>">
+                   <input type="hidden"  name="product_id" value="<?php echo $productid ; ?>">
+					<input type="hidden" name="action" value="softx_sortiment_employee_registation">
+                    <a class="btn add-btn addanotherbtn" href="#"> Add another </a>
+            		<input class="btn blue-btn requestbtn" type="submit" id="submit" name="submit" value="<?php esc_attr_e( 'Done', 'softx-sortiment' ); ?>">
+					
+                   </div>  
+                   <div class="message">
+					<p class="description success"></p>
+				</div>  
                </form>
+
            </div>
 			
 			

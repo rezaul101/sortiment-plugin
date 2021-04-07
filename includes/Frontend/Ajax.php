@@ -2,6 +2,9 @@
 
 namespace Softx\Sortiment\Frontend;
 use Softx\Sortiment\Traits\Form_Error;
+
+
+
 /**
  * Ajax handler class
  */
@@ -15,10 +18,16 @@ class Ajax {
      * Class constructor
      */
     function __construct() {
-
+        //company registation
         add_action( 'wp_ajax_softx_sortiment_registation', [ $this, 'submit_registation'] );
         add_action( 'wp_ajax_nopriv_softx_sortiment_registation', [ $this, 'submit_registation'] );
 
+        //employee registation
+        // add_action( 'wp_ajax_softx_sortiment_employee_registation', [ $this, 'submit_employee_registation'] );
+        // add_action( 'wp_ajax_nopriv_softx_sortiment_employee_registation', [ $this, 'submit_employee_registation'] );
+    
+
+        //company profile
         add_action( 'wp_ajax_update_company_profile', [ $this, 'company_update_form_handler'] );
         add_action( 'wp_ajax_nopriv_update_company_profile', [ $this, 'company_update_form_handler'] );
 
@@ -115,9 +124,6 @@ class Ajax {
                 $this->errors['company_email'] = __( 'This email address is already in use.', 'softx-sortminet' );  
             } 
 
-        // if ( empty( $company_email ) ) {
-        //     $this->errors['company_email'] = __( 'Please provide a company email.', 'softx-sortminet' );
-        // }
         if ( strlen( $password ) < 6 ) {
            
             $this->errors['password'] = __( 'Password length minimum be greater than 6!.', 'softx-sortminet' );
@@ -132,13 +138,6 @@ class Ajax {
         }
 
         else {
-
-           // $name               = isset ( $_REQUEST['name'] ) ? $_REQUEST['name'] : '';
-            //$company_name       = isset( $_REQUEST['company_name'] ) ? $_REQUEST['company_name'] : '';
-            //$company_email      = isset( $_REQUEST['company_email'] ) ? $_REQUEST['company_email'] : '';
-            //$company_address    = isset( $_REQUEST['company_address'] ) ? $_REQUEST['company_address'] : '';
-            //$password           = isset( $_REQUEST['password'] ) ? $_REQUEST['password'] : '';
-            //$cvr_number         = isset( $_REQUEST['cvr_number'] ) ? $_REQUEST['cvr_number'] : '';
                             
             $companydata = $wpdb->insert("{$wpdb->prefix}company_info", array(
                 'company_id' 	    =>   $company_id,
@@ -164,6 +163,7 @@ class Ajax {
             $user = wp_insert_user( $userdata );
 
             add_user_meta($user, 'company_id', $company_id);
+            
             $new_user_data = is_wp_error($user );
 
             /*
@@ -200,6 +200,89 @@ class Ajax {
         }
 
     }
+
+    /**
+     * Handle employee Registation Submission
+     *
+     * @return string 
+     *
+     **/
+
+    // public function submit_employee_registation() {
+    //     global $wpdb;
+    //     if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'new-employee-user' ) ) {
+    //         wp_send_json_success([
+    //             'message' => 'Nonce verification failed!'
+    //         ]);
+    //     }
+
+    //     $company_id          =  $_REQUEST['company_id'];
+    //     $product_id          =  $_REQUEST['product_id'];
+
+    //     $employee_name       =  $_REQUEST['fullname'] ;
+    //     $employee_email      =  $_REQUEST['email'] ;
+    //     $genarate_pass       =  'sortiment@2021';
+
+    //     for ($i=0; $i<= count($employee_name); $i++) {
+
+
+    //         if ( empty( $employee_name) ) {
+    //             $this->errors['fullname'] = __( 'Please provide a name', 'softx-sortminet' );
+    //         }
+
+    //         $email = $wpdb->escape($_REQUEST['email']);
+
+    //         if (!is_email($email)) {  
+    //             $this->errors['email'] = __( 'Please enter a valid email.', 'softx-sortminet' ); 
+    //             }elseif (email_exists($email)){  
+    //                 $this->errors['email'] = __( 'This email address is already in use.', 'softx-sortminet' );  
+    //             } 
+
+    //         if ( ! empty( $this->errors ) ) {
+    //             wp_send_json_error( ['error_message' => $this->errors ]);
+    //         }
+
+    //         else {
+
+    //             $employeedata = $wpdb->insert("{$wpdb->prefix}company_employee", array(
+    //                     'company_id' 	        =>   $company_id,
+    //                     'employee_name' 	    =>   $employee_name[$i],
+    //                     'employee_email' 	    =>   $employee_email[$i],
+    //                     'employee_pass'	        =>   $genarate_pass,
+    //                     'employee_address' 	    =>  '',
+    //                     'assigned_product_id'   =>   $product_id,
+
+    //                 ));
+    //                 $userdata = array(
+    //                     'user_login'        =>   $employee_name[$i],
+    //                     'user_email'	    =>   $employee_email[$i],
+    //                     'user_pass' 	    =>   $genarate_pass,
+    //                     //'first_name'        =>   $name,
+    //                     //'last_name'         =>   $name,
+    //                     //'nickname'          =>   $name,
+    //                     'role'              =>  'employee',
+                
+    //                 );
+    //                 $user = wp_insert_user( $userdata );
+    //                 add_user_meta($user, 'company_id', $company_id);
+    //                 $new_user_data = is_wp_error($user );
+
+    //                 if ( ! is_wp_error( $new_user_data) ) {
+                            
+    //                     wp_send_json_success([
+    //                         'message'   => 'Add employees has been successfully!'
+    //                     ]);
+                        
+    //                 } else {
+    //                     wp_send_json_error( [
+    //                         'message' => 'Add employees has been failed!'
+    //                     ] );
+    //                 } 
+
+    //             }
+    //     }
+
+    // }
 
     //login callbac function
     public function submit_login() {

@@ -16,6 +16,7 @@ class Installer {
     public function run() {
         $this->add_version();
         $this->create_company_role();
+        $this->create_employee_role();
         $this->create_tables();
         $this->create_pages();
 
@@ -51,6 +52,20 @@ class Installer {
 
         );
          //$company->add_cap('upload_files');
+
+    }
+
+    public function create_employee_role() {
+        add_role(
+            'employee',
+            __( 'Employee' ),
+            array(
+                'read'         => true,  // true allows this capability
+                'edit_posts'   => false,
+                'delete_posts' => false,   
+            )
+
+        );
 
     }
     /**

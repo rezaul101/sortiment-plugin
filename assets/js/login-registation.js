@@ -37,6 +37,43 @@
    
 
 })(jQuery);
+//employee registation js
+;(function($) {
+
+    $('#addemployee-form').on('submit', function(e) {
+        e.preventDefault();
+
+        var data = $(this).serialize();
+        var homeUrl = Sortiment.baseurl1;
+        //alert( domin );
+        $.post(Sortiment.ajaxurl, data, function(response) {
+            if (response.success) {
+                console.log(response.data.message);
+                $('p.description.success').html(response.data.message); 
+                $('.success').show().delay(4000).fadeOut();
+                 //window.location.href= '/sortiment-login';
+            } else {  
+                //$('p.description.error').html(response.data.error_message); 
+                //$('.error').show().delay(4000).fadeOut();
+                console.log('error_keys', response.data.error_message);
+                Object.keys(response.data.error_message).forEach(function(key) {
+                    const target= ('#'+key);
+                  
+                    $(target).after(`<p class="description error"> ${response.data.error_message[key]} </p>`);
+                    console.log('Key : ' + key + ', Value : ' + response.data.error_message[key]);
+                  })
+
+            }
+        })
+        .fail(function() {
+   
+            console.log(Sortiment.error);
+        
+        })
+
+    });
+})(jQuery);
+
 //login js
 ;(function($) {
 
@@ -48,7 +85,7 @@
         $.post(Sortiment.ajaxurl, data, function(response) {
             if (response.success) {
                 console.log(response.data.user_signon.roles[0]);
-                if(response.data.user_signon.roles[0]=='company'){
+                if(response.data.user_signon.roles[0]=='company' || response.data.user_signon.roles[0]=='employee'){
                  
                 $('p.description.success').html(response.data.message);
                 $('.success').show().delay(5000).fadeOut();  

@@ -1,0 +1,80 @@
+
+if (isset($_POST['import'])) {
+
+    $company_id = $_POST['company_id'];	
+    $product_id = $_POST['product_id'];	
+
+    $file_mimes = array(
+        'text/x-comma-separated-values', 
+        'text/comma-separated-values', 
+        'application/octet-stream', 
+        'application/vnd.ms-excel', 
+        'application/x-csv', 'text/x-csv', 
+        'text/csv', 'application/csv', 
+        'application/excel', 
+        'application/vnd.msexcel', 
+        'text/plain', 
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    );
+ 
+    if(isset($_FILES['file']['name']) && in_array($_FILES['file']['type'], $file_mimes)) {
+     
+        $arr_file = explode('.', $_FILES['file']['name']);
+        $extension = end($arr_file);
+     
+        if('csv' == $extension) {
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+        } else {
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+        }
+ 
+        $spreadsheet = $reader->load($_FILES['file']['tmp_name']);
+ 
+        $sheetData = $spreadsheet->getActiveSheet()->toArray();
+           // var_dump($sheetData);
+        if (!empty($sheetData)) {
+            for ($i=1; $i<count($sheetData); $i++) {
+                $name = $sheetData[$i][0];
+                $email = $sheetData[$i][1];
+                $genarate_pass = 'sortiment@2021';
+
+                $userdata = array(
+                    'user_login'        =>   $name ,
+                    'user_email'	    =>   $email,
+                    'user_pass' 	    =>   $genarate_pass,
+                    //'first_name'        =>   $name,
+                    //'last_name'         =>   $name,
+                    //'nickname'          =>   $name,
+                    'role'              =>  'employee',
+            
+                );
+                $user = wp_insert_user( $userdata );
+                add_user_meta($user, 'company_id', $company_id);
+
+                //$db->query("INSERT INTO USERS(name, email) VALUES('$name', '$email')");
+
+                if($user==true){
+							
+                    echo "<script>alert('Form Successfuly Submited.')</script>";
+
+                    $employeedata = $wpdb->insert("{$wpdb->prefix}company_employee", array(
+                        'company_id' 	        =>   $company_id,
+                        'employee_name' 	    =>   $name,
+                        'employee_email' 	    =>   $email,
+                        'employee_pass'	        =>   $genarate_pass,
+                        'employee_address' 	    =>  '',
+                        'assigned_product_id'   =>   $product_id,
+        
+                    ));
+                    
+                }
+                else{								
+                    echo "<script>alert('Opps! error')</script>";
+                   }
+            }
+        }
+    }else {
+        echo "<script>alert('Opps! Company Data Error')</script>";
+    }
+
+}

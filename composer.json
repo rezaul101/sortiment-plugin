@@ -11,7 +11,8 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "johnpbloch/wordpress": "dev-master"
+        "johnpbloch/wordpress": "dev-master",
+        "phpoffice/phpspreadsheet": "dev-master"
     },
     "autoload": {
         "psr-4": {

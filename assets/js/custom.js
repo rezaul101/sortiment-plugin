@@ -3,13 +3,22 @@ jQuery(document).ready(function($) {
   //alert('ok');
 });
 
-
 function openForm() {
   document.getElementById("myForm").style.display = "block";
 }
 function closeForm() {
   document.getElementById("myForm").style.display = "none";
 }
+
+
+/*===Request A Price form poppup show hide===*/
+function requesta_priceFormopenForm() {
+  document.getElementById("requesta_priceForm").style.display = "block";
+}
+function closeFormrequesta_price() {
+  document.getElementById("requesta_priceForm").style.display = "none";
+}
+
 
 /* == radio button yes click checkbox field show ==*/
 jQuery(document).ready(function($) {
@@ -88,9 +97,8 @@ $('#remove_agent').click(function() {
 });
 
 
-
-
 //File upload image show
+/*
 function readURL(input) {
   if (input.files && input.files[0]) {
     var reader = new FileReader();
@@ -103,12 +111,12 @@ function readURL(input) {
 jQuery(".inputimage").change(function() {
   readURL(this);
 });
+*/
 
 
 /* == Add employee popup == */
 function openForm() {
-    document.getElementById("myForm").style.display = "block";
-        
+    document.getElementById("myForm").style.display = "block";   
     }
     function closeForm() {
         document.getElementById("myForm").style.display = "none";
@@ -122,7 +130,7 @@ function openForm() {
     document.getElementById("list-icon").addEventListener("click", showList);
     function showList() {
     document.getElementById("employee-all").classList.remove("show-grid");
-    }
+}
 
 /* == when menu active ==*/
 jQuery(document).ready(function($) {
@@ -135,6 +143,30 @@ jQuery(document).ready(function($) {
           $(this).removeClass('active').addClass('active');
         }
      });
+});
+
+/******* another employee add field*******/
+jQuery(document).ready(function($) {  
+  jQuery('#add_new_employee_btn').click(function(){
+      var lastid = $(".add_employee_div:last").attr("id");
+      var split_id = lastid.split("_");
+      var increase_num_emp = Number(split_id[1]) + 1;
+
+      $(".add_employee_div:last").after("<div class='request-form add_employee_div increase-employee-div' id='empdiv_"+ increase_num_emp +"'></div>");
+
+      // Adding element to <div>
+      $("#empdiv_" + increase_num_emp).append(`<div class='name-field'><label for='title'><b>Name & Last name</b></label><input type='text' name='fullname[]' placeholder='Employee name' require='require'></div><div class='email-field'><label for='email'> <b>Email</b> </label> <input type='email' name='email[]' placeholder='Employee email' require='require'></div><span id='newremove_${increase_num_emp}' class='empremove'>x</span>`);			
+
+    });
+
+  jQuery('.add-new-employee-div').on('click','.empremove',function(){
+      var id = this.id;
+      var split_id = id.split("_");
+      var deleteindex = split_id[1];
+      // Remove <div> with id
+      $("#empdiv_" + deleteindex).remove();
+    }); 
+
 });
 
 

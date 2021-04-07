@@ -2,6 +2,7 @@
 
 namespace Softx\Sortiment\Frontend;
 
+
 /**
  * Shortcode handler class
  */
@@ -29,6 +30,7 @@ class DashboardYourEmployeesShortcode {
     function sortiment_your_employees_shortcode( $atts, $content = '') {
     if ( is_user_logged_in() ) { 
        wp_enqueue_script( 'sortiment-script' );
+       wp_enqueue_script( 'sortiment-script-login-registation' );
        wp_enqueue_style( 'sortiment-style' );
        
         ob_start();

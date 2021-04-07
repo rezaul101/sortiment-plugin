@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'johnpbloch\\Composer\\' => array($vendorDir . '/johnpbloch/wordpress-core-installer/src'),
+    'HTMLPurifier' => array($vendorDir . '/ezyang/htmlpurifier/library'),
 );

@@ -46,6 +46,18 @@ $loginuser_id = get_current_user_id();
                         echo ' <a href="'.wp_logout_url(home_url('sortiment-registation')).'" title="Logout"> Logout</a>';
                         }
                      }
+                     
+                     elseif ( is_user_logged_in() && 'employee' === $role_name  ) { 
+                        $get_companyid = get_user_meta($loginuser_id, 'company_id');
+                        $set_companyid = $get_companyid[0];
+
+                        $retrieve_data = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}company_info WHERE company_id = $set_companyid" );
+                        foreach ($retrieve_data as $retrieved_data){
+                            echo 'Welcome : ' . $current_user->user_login . "<br/>"; 
+                        //echo 'Welcome : ' . $retrieved_data->company_name . "<br/>"; 
+                        echo ' <a href="'.wp_logout_url(home_url('sortiment-registation')).'" title="Logout"> Logout</a>';
+                        }
+                     }
                      elseif ( is_user_logged_in() && 'administrator' === $role_name ) { 
 
                         echo 'Welcome : ' . $current_user->user_login . "<br/>"; 

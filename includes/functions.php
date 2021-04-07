@@ -10,6 +10,29 @@ function allow_company_uploads() {
 }
 
 /**
+ * Capture user login and add it as timestamp in user meta data
+ *
+ */
+
+function user_last_login( $user_login, $user ) {
+    update_user_meta( $user->ID, 'last_login', time() );
+}
+add_action( 'wp_login', 'user_last_login', 10, 2 );
+
+function wpb_lastlogin() { 
+    $last_login = get_the_author_meta('last_login');
+    //$the_login_date = human_time_diff($last_login);
+    $the_login_date = date('M j, Y', $last_login);
+    return $the_login_date; 
+} 
+/**
+ * Add Shortcode lastlogin 
+ *
+ */
+  
+add_shortcode('lastlogin','wpb_lastlogin');
+
+/**
  * redirect logout page
  *
  */
@@ -30,15 +53,13 @@ function auto_redirect_after_logout()
 // 	 exit();
 // }
 
-
-
 /*
 function ss_redirect_users_by_role() {
  
     $current_user   = wp_get_current_user();
     $role_name      = $current_user->roles[0];
  
-    if ( 'company' === $role_name ) {
+    if ( 'employee' === $role_name ) {
         wp_redirect(home_url('sortiment-dashboard'));
         exit();
     } 
